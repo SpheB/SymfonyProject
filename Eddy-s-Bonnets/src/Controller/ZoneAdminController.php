@@ -258,26 +258,6 @@ class ZoneAdminController extends AbstractController
     }
     
      /**
-     * @Route("/zone/admin/fan/comments/creation", name="zone_admin_fanCommentsCreation")
-     */
-    public function fanCommentsCreation()
-    {
-        return $this->render('zone_admin/index.html.twig', [
-            'controller_name' => 'ZoneAdminController',
-        ]);
-    }
-    
-     /**
-     * @Route("/zone/admin/fan/comments/update", name="zone_admin_fanCommentsUpdate")
-     */
-    public function fanCommentsUpdate()
-    {
-        return $this->render('zone_admin/index.html.twig', [
-            'controller_name' => 'ZoneAdminController',
-        ]);
-    }
-    
-     /**
      * @Route("/zone/admin/fan/comments", name="zone_admin_fanCommentsDelete")
      */
     public function fanCommentsDelete()

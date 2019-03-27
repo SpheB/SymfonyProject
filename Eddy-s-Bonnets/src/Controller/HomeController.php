@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+use App\Form\MailType;
 
 class HomeController extends AbstractController
 {
@@ -52,10 +55,39 @@ class HomeController extends AbstractController
      /**
      * @Route("/contact", name="contact")
      */
-    public function contact()
+    public function contact( \Swift_Mailer $mailer, Request $req)
     {
-        return $this->render('home/contact.html.twig', [
+        $monFormulaire = $this->createForm(MailType::class,
+                                            null,
+                                           ['action'=>$this->generateUrl("contact"), 'method'=>'POST']);
+        //dump($monFormulaire);
+        //die();
+        
+        $monFormulaire->handleRequest($req);
+
+        if ($monFormulaire->isSubmitted() && $monFormulaire->isValid()) {
+
+            $message = (new \Swift_Message('Ed-s-message from ' . $monFormulaire->getData()["your_email"]))
+                ->setFrom('developinterface3@gmail.com')
+                ->setTo('sphe.bonnet@gmail.com')
+                ->setBody("Message: " . $monFormulaire->getData()["message"] . " | Email: " . $monFormulaire->getData()["your_email"]);
+            
+            
+            $mailer->send($message);
+            
+            return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-        ]);
-    }
+            ]);
+        }
+        else{
+
+            $vars = ['formulaireMail'=>$monFormulaire->createView()];
+            return $this->render('home/contact.html.twig', $vars);
+            
+        }
+    }    
+        
+    
+        
+
 }

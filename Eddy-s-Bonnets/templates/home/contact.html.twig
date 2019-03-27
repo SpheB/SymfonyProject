@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Contact</h1>
 
     ON EST DANS CONTACT
     This friendly message is coming from:
@@ -18,4 +18,18 @@
         <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/home/contact.html.twig'|file_link(0) }}">templates/home/contact.html.twig</a></code></li>
     </ul>
 </div>
+        
+
+<br>
+<br>
+<br>
+<br>
+<br>
+        
+{{form_start(formulaireMail)}}
+{{form_widget(formulaireMail)}}
+<input type="submit" value="Envoyer"/>
+{{form_end(formulaireMail)}}
+
+
 {% endblock %}
