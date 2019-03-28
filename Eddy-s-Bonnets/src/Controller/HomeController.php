@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+
+use App\Entity\News;
+
 use App\Form\MailType;
 
 class HomeController extends AbstractController
@@ -47,10 +50,19 @@ class HomeController extends AbstractController
      */
     public function news()
     {
-        return $this->render('home/news.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+
+            $em = $this->getDoctrine()->getManager();
+            $rep = $em->getRepository(News::class);
+            $mesnews = $rep->findAll();
+            //dump($mesnews);
+           //die();
+                
+            $var = ['mesnews' => $mesnews];
+
+            return $this->render('/home/news.html.twig', $var);
+            
     }
+    
     
      /**
      * @Route("/contact", name="contact")

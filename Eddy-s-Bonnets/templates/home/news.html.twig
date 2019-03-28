@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>News</h1>
 
     ON EST DANS NEWS
     This friendly message is coming from:
@@ -18,5 +18,17 @@
         <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/home/news.html.twig'|file_link(0) }}">templates/home/news.html.twig</a></code></li>
     </ul>
 </div>
+        
+<br>
+<br>
+<br>
+{% for valeur in mesnews|reverse %}
+<ul>
+    <li>{{valeur.id}} </li>
+    <li>{{valeur.titre}} </li>
+    <li>{{valeur.textnews}} </li>
+    <li>{{valeur.datenews|date('d/m/Y')}} </li>
+</ul>
+{% endfor %}
 {% endblock %}
 
