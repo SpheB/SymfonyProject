@@ -84,7 +84,7 @@ class HomeController extends AbstractController
             $rep = $em->getRepository(News::class);
             $mesnews = $rep->findAll();
             //dump($mesnews);
-           //die();
+            //die();
                 
             $var = ['mesnews' => $mesnews];
 
