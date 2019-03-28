@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 use App\Entity\News;
+use App\Entity\Look;
+use App\Entity\Style;
 
 use App\Form\MailType;
 
@@ -39,12 +41,39 @@ class HomeController extends AbstractController
      */
     public function looks()
     {
-        return $this->render('home/looks.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        
+        $em = $this->getDoctrine()->getManager();
+        $replook = $em->getRepository(Look::class);
+        $meslooks = $replook->findAll();
+
+        $em2 = $this->getDoctrine()->getManager();
+        $repstyle = $em2->getRepository(Style::class);
+        
+        
+        //dump($meslooks);
+        //die();
+        foreach ($meslooks as $value) {
+           
+        $monstyle = $value->getIdStyle();
+        //dump($monstyle);
+        //die();
+        $nbr = $monstyle->getId();
+        //dump($nbr);
+        //die(); 
+        $monstylecomplet = $repstyle->find($nbr);
+        //dump($monstylecomplet);
+        //die();
+        $value->setIdStyle($monstylecomplet);
+        }
+                
+        $vars = ['meslooks' => $meslooks];
+        //dump($vars);
+        //die();
+        
+        return $this->render('home/looks.html.twig', $vars);
+        
     }
     
-     //si j'ai le temps???
      /**
      * @Route("/news", name="news")
      */
