@@ -43,6 +43,11 @@ class Look
      */
     private $fanComments;
 
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->concourss = new ArrayCollection();
@@ -148,6 +153,18 @@ class Look
                 $fanComment->setIdLook(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
