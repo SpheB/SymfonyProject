@@ -18,8 +18,13 @@
         <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/home/looks.html.twig'|file_link(0) }}">templates/home/looks.html.twig</a></code></li>
     </ul>
 </div>
-        
-        <br>
+      
+<br>
+<br>
+{% for valeur in messtyles %}
+    <div>{{valeur.typestyle}}</div>
+{% endfor %}
+<br>
 <br>
 <br>
 {% for valeur in meslooks|reverse %}

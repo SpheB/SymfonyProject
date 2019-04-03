@@ -44,29 +44,33 @@ class HomeController extends AbstractController
         
         $em = $this->getDoctrine()->getManager();
         $replook = $em->getRepository(Look::class);
+        $repstyle = $em->getRepository(Style::class);
+        
+        //je m'occupe de tous les styles
+        $messtyles = $repstyle->findAll();
+        
+        
+        //je m'occupe de tous les looks
         $meslooks = $replook->findAll();
-
-        $em2 = $this->getDoctrine()->getManager();
-        $repstyle = $em2->getRepository(Style::class);
-        
-        
         //dump($meslooks);
         //die();
+        //--> peut être plus efficace de faire un tableau clef/valeur avec id/objetcomplet et de setté le style des look en reprenant dans le tableau créé l'objet se situant à la clef de l'id en question 
+        //je leur met le style approprié
         foreach ($meslooks as $value) {
            
-        $monstyle = $value->getIdStyle();
-        //dump($monstyle);
-        //die();
-        $nbr = $monstyle->getId();
-        //dump($nbr);
-        //die(); 
-        $monstylecomplet = $repstyle->find($nbr);
-        //dump($monstylecomplet);
-        //die();
-        $value->setIdStyle($monstylecomplet);
+            $monstyle = $value->getIdStyle();
+            //dump($monstyle);
+            //die();
+            $nbr = $monstyle->getId();
+            //dump($nbr);
+            //die(); 
+            $monstylecomplet = $repstyle->find($nbr);
+            //dump($monstylecomplet);
+            //die();
+            $value->setIdStyle($monstylecomplet);
         }
                 
-        $vars = ['meslooks' => $meslooks];
+        $vars = ['meslooks' => $meslooks, 'messtyles' => $messtyles];
         //dump($vars);
         //die();
         
