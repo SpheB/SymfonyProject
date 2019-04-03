@@ -4,25 +4,24 @@ namespace App\Form;
 
 use App\Entity\Fan;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Validator\Constraints\Length;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class RegistrationFormType extends AbstractType
+class FanType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('pseudo', TextType::class)
-            ->add('avatar', FileType::class , array ('label'=>"Sélectionner une image avatar"))
-            ->add('plainPassword', PasswordType::class, [
+            //->add('roles')
+            ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -38,6 +37,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('pseudo', TextType::class)
+            ->add('avatar', FileType::class , array ('label'=>"Sélectionner une image avatar"))
+            //->add('is_admin')
         ;
     }
 

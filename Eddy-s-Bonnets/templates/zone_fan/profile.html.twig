@@ -9,13 +9,16 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Profile ✅</h1>
 
     ON EST DANS PROFILE
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/src/Controller/ZoneFanController.php'|file_link(0) }}">src/Controller/ZoneFanController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/zone_fan/profile.html.twig'|file_link(0) }}">templates/zone_fan/profile.html.twig</a></code></li>
-    </ul>
+    <br>
+    
+    {{monprofil.pseudo}}
+    --
+    {{monprofil.email}}
+    --
+    <img style="height: 250px;" src="{{ asset('/dossierFichiers/' ~ monprofil.avatar)}}" alt="avatar">
+    
 </div>
 {% endblock %}{# empty Twig template #}

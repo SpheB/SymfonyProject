@@ -33,6 +33,18 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            
+            //upload fichier (image pour avatar)
+            $fichier = $user->getAvatar();
+            //dump($fichier );
+            //die();
+            
+            $nomFichierServeur = md5(uniqid()) . "." . $fichier->guessExtension();
+            // stocker le fichier dans le serveur (on peut indiquer un dossier)
+            $fichier->move("dossierFichiers", $nomFichierServeur);
+            // affecter le nom du fichier de l'entité. Ça sera le nom qu'on
+            // aura dans la BD (un string, pas un objet UploadedFile cette fois)
+            $user->setAvatar($nomFichierServeur);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
