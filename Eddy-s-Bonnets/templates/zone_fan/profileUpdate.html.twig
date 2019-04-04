@@ -1,5 +1,41 @@
-{{ form_start (formulairetest) }}
-{{ form_widget (formulairetest) }}
-<input type="submit" class="btn" value="Envoyer" />
-{{ form_end (formulairetest) }}
-{# empty Twig template #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile & Update{% endblock %}
+
+{% block body %}
+    <h1>Profile & Update </h1>
+
+
+
+    {{ form_start (formulaireEmailFan) }}
+    <br>  
+    {{app.user.email}}
+    <br>
+    <br>
+    {{ form_row(formulaireEmailFan.email, {'value' : app.user.email}) }}
+    <input type="submit" class="btn" value="Envoyer" />
+    {{ form_end (formulaireEmailFan) }}
+
+
+    <br>
+
+    {{ form_start (formulairePseudoFan) }}
+    <br> 
+    {{app.user.pseudo}}
+    <br>
+    <br>
+    {{ form_row(formulairePseudoFan.pseudo, {'value' : app.user.pseudo}) }}
+    <input type="submit" class="btn" value="Envoyer" />
+    {{ form_end (formulairePseudoFan) }}
+    
+    <br>
+
+    {{ form_start (formulaireAvatarFan) }}
+    <img style="height: 250px;" src="{{ asset('/dossierFichiers/' ~ app.user.avatar)}}" alt="avatar">
+    <br>
+    <br>
+    {{ form_row(formulaireAvatarFan.avatar) }}
+    <input type="submit" class="btn" value="Envoyer" />
+    {{ form_end (formulaireAvatarFan) }}
+
+{% endblock %}

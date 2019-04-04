@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ZoneFanController!{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block body %}
 <style>
@@ -20,5 +20,8 @@
     --
     <img style="height: 250px;" src="{{ asset('/dossierFichiers/' ~ monprofil.avatar)}}" alt="avatar">
     
+    <br>
+    <a href="/zone/fan/profile/update">Modifier mon Profile</a>
+    <br>
 </div>
-{% endblock %}{# empty Twig template #}
+{% endblock %}

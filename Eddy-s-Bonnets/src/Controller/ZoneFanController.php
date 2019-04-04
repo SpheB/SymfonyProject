@@ -6,8 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-use App\Form\FanType;
+use App\Form\FanEmailType;
+use App\Form\FanPseudoType;
+use App\Form\FanAvatarType;
 use App\Entity\Fan;
 
 class ZoneFanController extends AbstractController {
@@ -22,9 +23,9 @@ class ZoneFanController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/fan/profile", name="fanProfile")
+     * @Route("/zone/fan/profile/version1", name="fanProfile")
      */
-    public function profile() {
+    public function profileVersion1() {
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository(Fan::class);
 
@@ -32,66 +33,88 @@ class ZoneFanController extends AbstractController {
         //dump($currentfanuser->getId());
         //die();
         $monprofil = $rep->find($currentfanuser->getId());
-        dump($monprofil);
+        //dump($monprofil);
         //die();
-        
+
         $vars = ['monprofil' => $monprofil];
         return $this->render('zone_fan/profile.html.twig', $vars);
     }
 
+    //fusionner cette page avec celle du profil (changeable directement)???
     /**
-     * @Route("/zone/fan/profile/update", name="FanProfileUpdate")
+     * @Route("/zone/fan/profile", name="FanProfile")
      */
-    public function profileUpdate(Request $req) {
+    public function profile(Request $req) {
         $cefan = new Fan();
- 
-        $fanrecherche = $this->getUser();
-        
-        $cefan->setEmail($fanrecherche->getEmail());
-        $cefan->setPseudo($fanrecherche->getPseudo());
+        $formulaireEmailFan = $this->createForm(FanEmailType::class, $cefan);
+        $formulaireEmailFan->handleRequest($req);
+        //die()
+        $formulairePseudoFan = $this->createForm(FanPseudoType::class, $cefan);
+        $formulairePseudoFan->handleRequest($req);
 
-        
-  
+        $formulaireAvatarFan = $this->createForm(FanAvatarType::class, $cefan);
+        $formulaireAvatarFan->handleRequest($req);
 
-        //dump($fanrecherche);
-        //die();
-        // créer un formulaire associé à cette entité
-        $formulaireFan = $this->createForm(FanType::class, $cefan);
-        
-        // gérer la requête (et hydrater l'entité)
-        $formulaireFan->handleRequest($req);
-        
-        
+        if ($formulaireEmailFan->isSubmitted() && $formulaireEmailFan->isValid()) {
+            dump($formulaireEmailFan);
+            dump($cefan);
+            //die();
 
-        if ($formulaireFan->isSubmitted() && $formulaireFan->isValid()) {
-       
-            // obtenir le fichier (pas un "string" mais un 
-            // objet de la class UploadedFile)
+            $em = $this->getDoctrine()->getManager();
+            $rep = $em->getRepository(Fan::class);
+            $currentfanuser = $this->getUser();
+            $monprofil = $rep->find($currentfanuser->getId());
+
+            //!!faire try-catch pour si email pas unique???
+            //!!faire if si avatar pas changé???
+
+            $monprofil->setEmail($cefan->getEmail());
+            //dump($monprofil);
+            //die();
+            $em->flush();
+            //return new Response("Email uploaded et BD mise à jour!");
+        }
+        else if ($formulairePseudoFan->isSubmitted() && $formulairePseudoFan->isValid()) {
+            //die();
+
+            $em = $this->getDoctrine()->getManager();
+            $rep = $em->getRepository(Fan::class);
+            $currentfanuser = $this->getUser();
+            $monprofil = $rep->find($currentfanuser->getId());
+
+            //!!faire try-catch pour si email pas unique???
+            //!!faire if si avatar pas changé???
+            $monprofil->setPseudo($cefan->getPseudo());
+
+            $em->flush();
+            //return new Response("Pseudo uploaded et BD mise à jour!");
+        } 
+        else if ($formulaireAvatarFan->isSubmitted() && $formulaireAvatarFan->isValid()) {
+            //die();
+            // obtenir le fichier (pas un "string" mais un objet de la class UploadedFile)
             $fichier = $cefan->getAvatar();
             //dump($fichier );
             //die();
-            // obtenir un nom de fichier unique 
-            // pour éviter les doublons dans le dossier
-            
             $nomFichierServeur = md5(uniqid()) . "." . $fichier->guessExtension();
             // stocker le fichier dans le serveur (on peut indiquer un dossier)
             $fichier->move("dossierFichiers", $nomFichierServeur);
-            // affecter le nom du fichier de l'entité. Ça sera le nom qu'on
-            // aura dans la BD (un string, pas un objet UploadedFile cette fois)
-            $cefan->setAvatar($nomFichierServeur);
+            // affecter le nom du fichier de l'entité. Ça sera le nom qu'on aura dans la BD (un string, pas un objet UploadedFile cette fois)
 
-            dump($cefan);
-            //die();
-            // stocker l'objet dans la BD, ou faire update
             $em = $this->getDoctrine()->getManager();
-            $em->persist($cefan);
-            $em->flush();
-            return new Response("fichier uploaded et BD mise à jour!");
-        } else {
+            $rep = $em->getRepository(Fan::class);
+            $currentfanuser = $this->getUser();
+            $monprofil = $rep->find($currentfanuser->getId());
 
-            return $this->render('zone_fan/profileUpdate.html.twig', ['formulairetest' => $formulaireFan->createView()]
-            );
+            $monprofil->setAvatar($nomFichierServeur);
+            //dump($monprofile);
+            //die();
+
+            $em->flush();
+            //return new Response("fichier uploaded et BD mise à jour!");
         }
+
+        $vars = ['formulaireEmailFan' => $formulaireEmailFan->createView(), 'formulairePseudoFan' => $formulairePseudoFan->createView(), 'formulaireAvatarFan' => $formulaireAvatarFan->createView()];
+        return $this->render('zone_fan/profileUpdate.html.twig', $vars);
     }
 
     //ici les concours ne peuvent être vus ET participés par Fans connectés. Si peuvent être vus par tous peut-être changer de place???
