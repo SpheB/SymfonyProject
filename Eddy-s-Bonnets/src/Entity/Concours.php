@@ -38,6 +38,7 @@ class Concours
      */
     private $gagnant;
 
+    //ici???
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Look", inversedBy="concours")
      */
