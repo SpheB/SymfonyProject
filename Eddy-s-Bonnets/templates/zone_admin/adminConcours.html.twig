@@ -1,0 +1,25 @@
+
+
+{% block body %}
+
+    <h1>Tous Les Concours</h1>
+    <br>
+    {% for valeur in lesconcours|reverse %}
+        <ul>
+            <li>{{valeur.id}} </li>
+            <li>
+                {% if valeur.gagnant != null %}
+                    {{valeur.gagnant.id}} | {{valeur.gagnant.picture}}
+                {% endif %}
+            </li>
+            <li>{{valeur.theme}} </li>
+            <li>{{valeur.datedebut|date('d/m/Y')}} </li>
+            <li>{{valeur.datefin|date('d/m/Y')}} </li>
+            <li>{{valeur.commentconcours}} </li>
+
+            <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
+        </ul>
+    {% endfor %}
+    
+     <a class="btn" href="/zone/admin/concours/creation">Nouveau concours</a>
+{% endblock %}

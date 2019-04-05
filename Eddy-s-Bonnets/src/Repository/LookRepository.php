@@ -47,4 +47,18 @@ class LookRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findByConcours($concours){
+        $query = $this->createQueryBuilder('a')
+                      ->select('a')
+                      ->leftJoin('a.concourss', 'c')
+                      ->addSelect('c');
+ 
+        $query2 = $query->add('where', $query->expr()->in('c', ':c'))
+                      ->setParameter('c', $concours)
+                      ->getQuery()
+                      ->getResult();
+          
+        return $query2;
+    }
 }

@@ -1,0 +1,11 @@
+test
+<li>{{concours.id}} </li>
+            <li>
+                {% if concours.gagnant != null %}
+                    {{concours.gagnant.id}} | {{concours.gagnant.picture}} | {{concours.gagnant.idstyle.id}} | {{concours.gagnant.idstyle.typestyle}}
+                {% endif %}
+            </li>
+            <li>{{concours.theme}} </li>
+            <li>{{concours.datedebut|date('d/m/Y')}} </li>
+            <li>{{concours.datefin|date('d/m/Y')}} </li>
+            <li>{{concours.commentconcours}} </li>

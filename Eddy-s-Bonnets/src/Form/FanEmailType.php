@@ -13,7 +13,6 @@ class FanEmailType extends AbstractType
     {
         $builder
             ->add('email')
-
         ;
     }
 

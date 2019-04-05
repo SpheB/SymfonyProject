@@ -39,8 +39,7 @@ class ZoneFanController extends AbstractController {
         $vars = ['monprofil' => $monprofil];
         return $this->render('zone_fan/profile.html.twig', $vars);
     }
-
-    //fusionner cette page avec celle du profil (changeable directement)???
+    
     /**
      * @Route("/zone/fan/profile", name="FanProfile")
      */
@@ -100,6 +99,7 @@ class ZoneFanController extends AbstractController {
             $fichier->move("dossierFichiers", $nomFichierServeur);
             // affecter le nom du fichier de l'entité. Ça sera le nom qu'on aura dans la BD (un string, pas un objet UploadedFile cette fois)
 
+            //si j'ai le temps, supprimer le fichier précédant de la base de donnée???
             $em = $this->getDoctrine()->getManager();
             $rep = $em->getRepository(Fan::class);
             $currentfanuser = $this->getUser();

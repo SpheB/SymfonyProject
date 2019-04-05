@@ -48,6 +48,11 @@ class Concours
      */
     private $votes;
 
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $comment_concours;
+
     public function __construct()
     {
         $this->looks = new ArrayCollection();
@@ -160,6 +165,18 @@ class Concours
                 $vote->setIdConcours(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCommentConcours(): ?string
+    {
+        return $this->comment_concours;
+    }
+
+    public function setCommentConcours(?string $comment_concours): self
+    {
+        $this->comment_concours = $comment_concours;
 
         return $this;
     }
