@@ -1,0 +1,14 @@
+    {{ form_start (formulaireConcours) }}
+
+    <br>
+    <br>
+    {{ form_row(formulaireConcours.theme)}}
+    {{ form_row(formulaireConcours.date_debut)}}
+    {{ form_row(formulaireConcours.date_fin)}}
+    {{ form_row(formulaireConcours.date_fin)}}
+    {{ form_row(formulaireConcours.comment_concours)}}
+    {{ form_row(formulaireConcours.looks)}}
+
+    
+    <input type="submit" class="btn" value="Envoyer" />
+    {{ form_end (formulaireConcours) }}

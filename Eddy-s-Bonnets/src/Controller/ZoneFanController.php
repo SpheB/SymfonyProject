@@ -11,6 +11,7 @@ use App\Form\FanPseudoType;
 use App\Form\FanAvatarType;
 use App\Entity\Fan;
 
+
 class ZoneFanController extends AbstractController {
 
     /**

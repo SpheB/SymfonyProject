@@ -4,6 +4,8 @@
 
     <h1>Tous Les Concours</h1>
     <br>
+     <a class="btn" href="/zone/admin/concours/creation">New Concours</a>
+    <br>
     {% for valeur in lesconcours|reverse %}
         <ul>
             <li>{{valeur.id}} </li>
@@ -20,6 +22,5 @@
             <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
         </ul>
     {% endfor %}
-    
-     <a class="btn" href="/zone/admin/concours/creation">Nouveau concours</a>
+
 {% endblock %}

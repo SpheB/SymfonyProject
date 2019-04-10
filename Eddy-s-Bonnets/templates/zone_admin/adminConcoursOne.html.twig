@@ -1,11 +1,21 @@
 test
+<ul>
 <li>{{concours.id}} </li>
-            <li>
-                {% if concours.gagnant != null %}
-                    {{concours.gagnant.id}} | {{concours.gagnant.picture}} | {{concours.gagnant.idstyle.id}} | {{concours.gagnant.idstyle.typestyle}}
-                {% endif %}
-            </li>
-            <li>{{concours.theme}} </li>
-            <li>{{concours.datedebut|date('d/m/Y')}} </li>
-            <li>{{concours.datefin|date('d/m/Y')}} </li>
-            <li>{{concours.commentconcours}} </li>
+<li>
+    {% if concours.gagnant != null %}
+        {{concours.gagnant.id}} | {{concours.gagnant.picture}} | {{concours.gagnant.idstyle.id}} | {{concours.gagnant.idstyle.typestyle}}
+    {% endif %}
+</li>
+<li>{{concours.theme}} </li>
+<li>{{concours.datedebut|date('d/m/Y')}} </li>
+<li>{{concours.datefin|date('d/m/Y')}} </li>
+<li>{{concours.commentconcours}} </li>
+</ul>
+{% for valeur in concours.looks %}
+    <ul>
+        <li>{{valeur.id}} | {{valeur.picture}}</li>
+
+
+        <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
+    </ul>
+{% endfor %}

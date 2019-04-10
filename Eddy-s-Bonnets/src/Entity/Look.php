@@ -59,12 +59,12 @@ class Look
         return $this->id;
     }
 
-    public function getPicture(): ?string
+    public function getPicture()
     {
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): self
+    public function setPicture($picture)
     {
         $this->picture = $picture;
 

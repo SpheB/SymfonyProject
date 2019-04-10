@@ -27,7 +27,7 @@ class Vote
     private $id_concours;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\fan", inversedBy="votes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Fan", inversedBy="votes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_fan;

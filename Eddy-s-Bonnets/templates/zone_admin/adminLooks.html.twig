@@ -1,0 +1,19 @@
+{% block body %}
+
+    <h1>Tous Les Looks</h1>
+    <br>
+     <a class="btn" href="/zone/admin/looks/creation">New Look</a>
+    <br>
+    {% for valeur in leslooks|reverse %}
+        <ul>
+            <li>{{valeur.id}} </li>
+            <li>{{valeur.idstyle.id}} | {{valeur.idstyle.typestyle}} </li>
+            <li>{{valeur.picture}} </li>
+            <li>{{valeur.likes}} </li>
+            <li>{{valeur.description}} </li>
+
+            <a class="btn" href="/zone/admin/looks/one/{{valeur.id}}">Modifier</a>
+        </ul>
+    {% endfor %}
+
+{% endblock %}{# empty Twig template #}

@@ -5,9 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-
 use App\Entity\Concours;
 use App\Entity\Look;
+use App\Form\ConcoursCreation2Type;
+use App\Form\LooksCreationType;
 
 class ZoneAdminController extends AbstractController {
 
@@ -28,7 +29,6 @@ class ZoneAdminController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
         $repconcours = $em->getRepository(Concours::class);
         //$replook = $em->getRepository(Look::class);
-
         //je m'occupe de tous les concours
         $lesconcours = $repconcours->findAll();
 
@@ -36,16 +36,16 @@ class ZoneAdminController extends AbstractController {
         //foreach ($lesconcours as $value) {
         //    if ($value->getGagnant() != null) {
         //        $monlookGagnant = $value->getGagnant();
-                //dump($monstyle);
-                //die();
-         //       $nbr = $monlookGagnant->getId();
-                //dump($nbr);
-                //die(); 
+        //dump($monstyle);
+        //die();
+        //       $nbr = $monlookGagnant->getId();
+        //dump($nbr);
+        //die(); 
         //        $monlookGagnantcomplet = $replook->find($nbr);
-                //dump($monstylecomplet);
-                //die();
-         //       $value->setGagnant($monlookGagnantcomplet);
-         //   }
+        //dump($monstylecomplet);
+        //die();
+        //       $value->setGagnant($monlookGagnantcomplet);
+        //   }
         //}
 
         $vars = ['lesconcours' => $lesconcours];
@@ -55,36 +55,49 @@ class ZoneAdminController extends AbstractController {
     /**
      * @Route("/zone/admin/concours/creation", name="zone_admin_concoursCreation")
      */
-    public function concoursCreation() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function concoursCreation(Request $request) {
+
+        $concours = new Concours();
+        $form = $this->createForm(ConcoursCreation2Type::class, $concours);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //dump($concours);die;
+            //met dans base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($concours);
+            $entityManager->flush();
+
+
+            //return redirectoaction tous concours
+            return $this->redirect("/zone/admin/concours/all");
+        } else {
+
+            $vars = ['formulaireConcours' => $form->createView()];
+            return $this->render('zone_admin/concoursCreation.html.twig', $vars);
+        }
     }
 
     /**
      * @Route("/zone/admin/concours/one/{idconcours}", name="zone_admin_concours/one")
      */
     public function concoursOne(Request $req) {
-        
         //dump($req);
         //die();
-        
         $em = $this->getDoctrine()->getManager();
         $repconcours = $em->getRepository(Concours::class);
-        $replook = $em->getRepository(Look::class);
-        
+
         $nbr = $req->get('idconcours');
-      
         $monconcours = $repconcours->find($nbr);
-        dump($monconcours);
-        $meslooksduconcours = $replook->findByConcours($monconcours);
-        dump('meh', $meslooksduconcours);
-        die();
-        
+
+        foreach ($monconcours->getLooks() as $l) {
+            dump($l);
+        }
+
         $vars = ['concours' => $monconcours];
         dump($vars);
         //die();
-        
+
         return $this->render('zone_admin/adminConcoursOne.html.twig', $vars);
     }
 
@@ -99,30 +112,73 @@ class ZoneAdminController extends AbstractController {
 
     //---gestion looks---
     /**
-     * @Route("/zone/admin/looks/", name="zone_admin_looks")
+     * @Route("/zone/admin/looks/all", name="zone_admin_looks_all")
      */
-    public function looks() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function looksAll() {
+
+        $em = $this->getDoctrine()->getManager();
+        $replooks = $em->getRepository(Look::class);
+
+        $leslooks = $replooks->findAll();
+
+        $vars = ['leslooks' => $leslooks];
+        return $this->render('zone_admin/adminLooks.html.twig', $vars);
     }
 
     /**
      * @Route("/zone/admin/looks/creation", name="zone_admin_looksCreation")
      */
-    public function looksCreation() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function looksCreation(Request $req) {
+        $look = new Look();
+        $look->setLikes(0);
+        $form = $this->createForm(LooksCreationType::class, $look);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //dump($concours);die;
+            
+            //gère l'image du look
+            $fichier = $look->getPicture();
+            
+           
+            $nomFichierServeur = md5(uniqid()) . "." . $fichier->guessExtension();
+            $fichier->move("dossierFichiers", $nomFichierServeur);
+            
+            
+            $look->setPicture($nomFichierServeur);
+      
+            //met dans base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($look);
+            $entityManager->flush();
+
+            //return redirectoaction tous concours
+            return $this->redirect("/zone/admin/looks/all");
+        } else {
+
+            $vars = ['formulaireLook' => $form->createView()];
+            return $this->render('zone_admin/lookCreation.html.twig', $vars);
+        }
     }
 
     /**
-     * @Route("/zone/admin/looks/update", name="zone_admin_looksUpdate")
+     * @Route("/zone/admin/looks/one/{idlook}", name="zone_admin_looksUpdate")
      */
-    public function looksUpdate() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function looksUpdate(Request $req) {
+        //dump($req);
+        //die();
+        $em = $this->getDoctrine()->getManager();
+        $replook = $em->getRepository(Look::class);
+
+        $nbr = $req->get('idlook');
+        $monlook = $replook->find($nbr);
+
+
+        $vars = ['look' => $monlook];
+        dump($vars);
+        //die();
+
+        return $this->render('zone_admin/adminLookOne.html.twig', $vars);
     }
 
     /**
