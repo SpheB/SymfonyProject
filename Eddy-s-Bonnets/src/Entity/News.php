@@ -77,12 +77,12 @@ class News
         return $this;
     }
 
-    public function getPictureNews(): ?string
+    public function getPictureNews()
     {
         return $this->picture_news;
     }
 
-    public function setPictureNews(?string $picture_news): self
+    public function setPictureNews($picture_news)
     {
         $this->picture_news = $picture_news;
 

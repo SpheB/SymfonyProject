@@ -1,0 +1,17 @@
+{% block body %}
+
+    <h1>Tous Les Styles</h1>
+    <br>
+     <a class="btn" href="/zone/admin/styles/creation">Ajouter Style</a>
+    <br>
+    {% for valeur in lesstyles|reverse %}
+        <ul>
+            <li>{{valeur.id}} </li>
+            <li>{{valeur.typestyle}} </li>
+
+
+            <a class="btn" href="/zone/admin/styles/one/{{valeur.id}}">Modifier</a>
+        </ul>
+    {% endfor %}
+
+{% endblock %}

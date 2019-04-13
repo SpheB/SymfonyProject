@@ -7,8 +7,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Concours;
 use App\Entity\Look;
+use App\Entity\Style;
+use App\Entity\News;
 use App\Form\ConcoursCreation2Type;
 use App\Form\LooksCreationType;
+use App\Form\StyleCreationType;
+use App\Form\NewsCreationType;
 
 class ZoneAdminController extends AbstractController {
 
@@ -79,7 +83,7 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/concours/one/{idconcours}", name="zone_admin_concours/one")
+     * @Route("/zone/admin/concours/one/{idconcours}", name="zone_admin_concours_one")
      */
     public function concoursOne(Request $req) {
         //dump($req);
@@ -102,7 +106,7 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/concours/delete", name="zone_admin_concoursDelete")
+     * @Route("/zone/admin/concours/delete", name="zone_admin_concours_delete")
      */
     public function concoursDelete() {
         return $this->render('zone_admin/index.html.twig', [
@@ -136,17 +140,12 @@ class ZoneAdminController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             //dump($concours);die;
-            
             //gère l'image du look
             $fichier = $look->getPicture();
-            
-           
             $nomFichierServeur = md5(uniqid()) . "." . $fichier->guessExtension();
             $fichier->move("dossierFichiers", $nomFichierServeur);
-            
-            
             $look->setPicture($nomFichierServeur);
-      
+
             //met dans base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($look);
@@ -162,9 +161,9 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/looks/one/{idlook}", name="zone_admin_looksUpdate")
+     * @Route("/zone/admin/looks/one/{idlook}", name="zone_admin_looks_one")
      */
-    public function looksUpdate(Request $req) {
+    public function looksOne(Request $req) {
         //dump($req);
         //die();
         $em = $this->getDoctrine()->getManager();
@@ -192,30 +191,59 @@ class ZoneAdminController extends AbstractController {
 
     //---gestion styles---
     /**
-     * @Route("/zone/admin/styles/", name="zone_admin_styles")
+     * @Route("/zone/admin/styles/all", name="zone_admin_styles_all")
      */
-    public function styles() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function stylesAll() {
+
+        $em = $this->getDoctrine()->getManager();
+        $repstyle = $em->getRepository(Style::class);
+
+        $lesstyles = $repstyle->findAll();
+
+        $vars = ['lesstyles' => $lesstyles];
+        return $this->render('zone_admin/adminStyles.html.twig', $vars);
     }
 
     /**
      * @Route("/zone/admin/styles/creation", name="zone_admin_stylesCreation")
      */
-    public function stylesCreation() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function stylesCreation(Request $req) {
+        $style = new style();
+        $form = $this->createForm(StyleCreationType::class, $style);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //met dans base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($style);
+            $entityManager->flush();
+
+            //return redirectoaction tous concours
+            return $this->redirect("/zone/admin/styles/all");
+        } else {
+
+            $vars = ['formulaireStyle' => $form->createView()];
+            return $this->render('zone_admin/styleCreation.html.twig', $vars);
+        }
     }
 
     /**
-     * @Route("/zone/admin/styles/update", name="zone_admin_stylesUpdate")
+     * @Route("/zone/admin/styles/one/{idstyle}", name="zone_admin_styles_one")
      */
-    public function stylesUpdate() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function stylesOne(Request $req) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repstyle = $em->getRepository(Style::class);
+
+        $nbr = $req->get('idstyle');
+        $monstyle = $repstyle->find($nbr);
+
+        $vars = ['style' => $monstyle];
+        //dump($vars);
+        //die();
+
+        return $this->render('zone_admin/adminStyleOne.html.twig', $vars);
     }
 
     /**
@@ -229,30 +257,62 @@ class ZoneAdminController extends AbstractController {
 
     //---gestion news---
     /**
-     * @Route("/zone/admin/news/", name="zone_admin_news")
+     * @Route("/zone/admin/news/all", name="zone_admin_news_all")
      */
-    public function news() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function newAll() {
+        $em = $this->getDoctrine()->getManager();
+        $repnews = $em->getRepository(News::class);
+
+        $lesnews = $repnews->findAll();
+
+        $vars = ['lesnews' => $lesnews];
+        return $this->render('zone_admin/adminNews.html.twig', $vars);
     }
 
     /**
      * @Route("/zone/admin/news/creation", name="zone_admin_newsCreation")
      */
-    public function newsCreation() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function newsCreation(Request $req) {
+        $news= new News();
+        $form = $this->createForm(NewsCreationType::class, $news);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //gère l'image de la news
+            $fichier = $news->getPictureNews();
+            $nomFichierServeur = md5(uniqid()) . "." . $fichier->guessExtension();
+            $fichier->move("dossierFichiers", $nomFichierServeur);
+            $news->setPictureNews($nomFichierServeur);
+
+            //met dans base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($news);
+            $entityManager->flush();
+
+            //return redirectoaction tous concours
+            return $this->redirect("/zone/admin/news/all");
+        } else {
+
+            $vars = ['formulaireNews' => $form->createView()];
+            return $this->render('zone_admin/newsCreation.html.twig', $vars);
+        }
     }
 
     /**
-     * @Route("/zone/admin/news/update", name="zone_admin_newsUpdate")
+     * @Route("/zone/admin/news/one/{idnews}", name="zone_admin_news_one")
      */
-    public function newsUpdate() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function newsOne(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $repnews = $em->getRepository(News::class);
+
+        $nbr = $req->get('idnews');
+        $manews = $repnews->find($nbr);
+
+        $vars = ['news' => $manews];
+        //dump($vars);
+        //die();
+
+        return $this->render('zone_admin/adminNewsOne.html.twig', $vars);
     }
 
     /**
@@ -266,18 +326,9 @@ class ZoneAdminController extends AbstractController {
 
     //---gestion fans---
     /**
-     * @Route("/zone/admin/fans/", name="zone_admin_fans")
+     * @Route("/zone/admin/fans/all", name="zone_admin_fans_all")
      */
-    public function fans() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
-    }
-
-    /**
-     * @Route("/zone/admin/fans/creation", name="zone_admin_fansCreation")
-     */
-    public function fansCreation() {
+    public function fansAll() {
         return $this->render('zone_admin/index.html.twig', [
                     'controller_name' => 'ZoneAdminController',
         ]);

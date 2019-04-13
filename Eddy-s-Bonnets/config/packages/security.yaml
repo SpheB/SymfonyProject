@@ -1,7 +1,8 @@
 security:
     encoders:
         App\Entity\Fan:
-            algorithm: argon2i
+            #algorithm: argon2i
+            algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
