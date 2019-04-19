@@ -9,6 +9,8 @@ use App\Entity\Concours;
 use App\Entity\Look;
 use App\Entity\Style;
 use App\Entity\News;
+use App\Entity\Fan;
+use App\Entity\FanComment;
 use App\Form\ConcoursCreation2Type;
 use App\Form\LooksCreationType;
 use App\Form\StyleCreationType;
@@ -270,10 +272,10 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/news/creation", name="zone_admin_newsCreation")
+     * @Route("/zone/admin/news/creation", name="zone_admin_news_creation")
      */
     public function newsCreation(Request $req) {
-        $news= new News();
+        $news = new News();
         $form = $this->createForm(NewsCreationType::class, $news);
         $form->handleRequest($req);
 
@@ -316,7 +318,7 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/news/delete", name="zone_admin_newsDelete")
+     * @Route("/zone/admin/news/delete", name="zone_admin_news_delete")
      */
     public function newsDelete() {
         return $this->render('zone_admin/index.html.twig', [
@@ -329,13 +331,17 @@ class ZoneAdminController extends AbstractController {
      * @Route("/zone/admin/fans/all", name="zone_admin_fans_all")
      */
     public function fansAll() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $repfan = $em->getRepository(Fan::class);
+
+        $lesfans = $repfan->findAllAlphabetic();
+
+        $vars = ['lesfans' => $lesfans];
+        return $this->render('zone_admin/adminFans.html.twig', $vars);
     }
 
     /**
-     * @Route("/zone/admin/fans/update", name="zone_admin_fansUpdate")
+     * @Route("/zone/admin/fans/update", name="zone_admin_fans_update")
      */
     public function fansUpdate() {
         return $this->render('zone_admin/index.html.twig', [
@@ -344,31 +350,30 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/fans/delete", name="zone_admin_fansDelete")
+     * @Route("/zone/admin/fans/delete/{idfan}", name="zone_admin_fans_delete")
      */
-    public function fansDelete() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function fansDelete(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $unfan = $em->getRepository(Fan::class)->find($req->get('idfan'));
+        $em->remove($unfan);
+        $em->flush();
+
+        //return redirectoaction tous fans
+        return $this->redirect("/zone/admin/fans/all");
     }
 
     //---gestion fanComments---
     /**
-     * @Route("/zone/admin/fan/comments", name="zone_admin_fanComments")
+     * @Route("/zone/admin/fan/comments/delete/{idcomment}", name="zone_admin_fanComments_delete")
      */
-    public function fanComments() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
-    }
+    public function fanCommentsDelete(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $unfancomment = $em->getRepository(FanComment::class)->find($req->get('idcomment'));
+        $em->remove($unfancomment);
+        $em->flush();
 
-    /**
-     * @Route("/zone/admin/fan/comments", name="zone_admin_fanCommentsDelete")
-     */
-    public function fanCommentsDelete() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+        //return redirectoaction tous fans
+        return $this->redirect("/zone/admin/fans/all");
     }
 
 }

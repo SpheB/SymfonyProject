@@ -47,4 +47,18 @@ class FanRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    // /**
+    //  * @return Fan[] Returns an array of Fan objects
+    //  */
+    
+    public function findAllAlphabetic()
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.pseudo', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+  
 }
