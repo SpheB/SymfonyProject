@@ -108,12 +108,16 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/concours/delete", name="zone_admin_concours_delete")
+     * @Route("/zone/admin/concours/delete/{idconcours}", name="zone_admin_concours_delete")
      */
-    public function concoursDelete() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function concoursDelete(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $unconcours = $em->getRepository(Concours::class)->find($req->get('idconcours'));
+        $em->remove($unconcours);
+        $em->flush();
+
+        //return redirectoaction tous fans
+        return $this->redirect("/zone/admin/concours/all");
     }
 
     //---gestion looks---
@@ -183,12 +187,16 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/looks/delete", name="zone_admin_looksDelete")
+     * @Route("/zone/admin/looks/delete/{idlook}", name="zone_admin_looksDelete")
      */
-    public function looksDelete() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function looksDelete(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $unlook = $em->getRepository(Look::class)->find($req->get('idlook'));
+        $em->remove($unlook);
+        $em->flush();
+
+        //return redirectoaction tous fans
+        return $this->redirect("/zone/admin/looks/all");
     }
 
     //---gestion styles---
@@ -249,12 +257,16 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/styles/delete", name="zone_admin_stylesDelete")
+     * @Route("/zone/admin/styles/delete/{idstyle}", name="zone_admin_stylesDelete")
      */
-    public function stylesDelete() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function stylesDelete(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $unstyle = $em->getRepository(Style::class)->find($req->get('idstyle'));
+        $em->remove($unstyle);
+        $em->flush();
+
+        //return redirectoaction tous fans
+        return $this->redirect("/zone/admin/styles/all");
     }
 
     //---gestion news---
@@ -318,12 +330,16 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/news/delete", name="zone_admin_news_delete")
+     * @Route("/zone/admin/news/delete/{idnews}", name="zone_admin_news_delete")
      */
-    public function newsDelete() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function newsDelete(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $unenews = $em->getRepository(News::class)->find($req->get('idnews'));
+        $em->remove($unenews);
+        $em->flush();
+
+        //return redirectoaction tous fans
+        return $this->redirect("/zone/admin/news/all");
     }
 
     //---gestion fans---
