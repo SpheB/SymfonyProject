@@ -10,6 +10,7 @@ use App\Form\FanEmailType;
 use App\Form\FanPseudoType;
 use App\Form\FanAvatarType;
 use App\Entity\Fan;
+use App\Entity\FanComment;
 
 
 class ZoneFanController extends AbstractController {
@@ -122,6 +123,21 @@ class ZoneFanController extends AbstractController {
     /**
      * @Route("/zone/fan/concours", name="fanConcours")
      */
+    
+    /**
+     * @Route("/zone/fan/fan/comments/delete/{idfancomment}", name="fan_fanComment_delete")
+     */
+    public function FanCommentDelete(Request $req){
+        $em = $this->getDoctrine()->getManager();
+        $unfancomment = $em->getRepository(FanComment::class)->find($req->get('idfancomment'));
+        $em->remove($uncomment);
+        $em->flush();
+
+        //return redirectoaction tous fans
+        return $this->redirect("/looks");
+    }
+            
+            
     public function concours() {
         return $this->render('zone_fan/profile.html.twig', [
                     'controller_name' => 'ZoneFanController',

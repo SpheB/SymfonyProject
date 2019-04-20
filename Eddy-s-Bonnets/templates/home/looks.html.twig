@@ -3,37 +3,67 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-<div class="example-wrapper">
-    <h1>Looks! ✅</h1>
+    <div class="example-wrapper">
+        <h1>Looks! ✅</h1>
 
-    ON EST DANS LOOKS
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/home/looks.html.twig'|file_link(0) }}">templates/home/looks.html.twig</a></code></li>
-    </ul>
-</div>
-      
-<br>
-<br>
-{% for valeur in messtyles %}
-    <div>{{valeur.typestyle}}</div>
-{% endfor %}
-<br>
-<br>
-<br>
-{% for valeur in meslooks|reverse %}
-<ul>
-    <li>{{valeur.id}} </li>
-    <li>{{valeur.idstyle.typestyle}} </li>
-    <li>{{valeur.picture}} </li>
-    <li>{{valeur.description}} </li>
-    <li>{{valeur.likes}} </li>
-</ul>
-{% endfor %}
+        ON EST DANS LOOKS
+        This friendly message is coming from:
+        <ul>
+            <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
+            <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/home/looks.html.twig'|file_link(0) }}">templates/home/looks.html.twig</a></code></li>
+        </ul>
+    </div>
+
+    <br>
+    <br>
+    {% for valeur in messtyles %}
+        <div>{{valeur.typestyle}}</div>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+    {% for valeur in meslooks|reverse %}
+        <ul>
+            <li>{{valeur.id}} </li>
+            <li>{{valeur.idstyle.typestyle}} </li>
+            <li>{{valeur.picture}} </li>
+            <li>{{valeur.description}} </li>
+            <li>{{valeur.likes}} </li>
+            <li>
+                {% for comment in valeur.fanComments|reverse %}
+                    <ul>
+                        <ul>
+                            <li>{{comment.id}}</li>
+                            <li>{{comment.textcomment}} </li>
+                            <li>{{comment.datecomment|date('d/m/Y')}} </li>
+                            <li>{{comment.idfan.id}} | {{comment.idfan.pseudo}}</li>
+                                {% if app.user.id == comment.idfan.id %}
+                                <a class="btn" href="/zone/fan/fan/comments/delete/{{comment.id}}">Supprimer</a>
+                            {% endif %}
+                        </ul>
+                    </ul>
+                {% endfor %}
+            </li>  
+           
+            {#
+            {% if app.user.id != null %}
+                {{ form_start (formulaireFanComment) }}
+                <br>
+                <br>
+                {{ form_row(formulaireFanComment.text_comment, {'value' : 'cfrtcyfcycyfcytcyt'})}}
+                {{ form_row(formulaireFanComment.id_look, {'value' : ""~valeur.id~""}) }}
+                {{ form_row(formulaireFanComment.id_fan, {'value' : ""~app.user.id~""}) }}
+
+                <input type="submit" class="btn" value="Envoyer" />
+                {{ form_end (formulaireFanComment) }}
+            {% endif %} 
+            #}
+           
+        </ul>
+    {% endfor %}
 {% endblock %}
