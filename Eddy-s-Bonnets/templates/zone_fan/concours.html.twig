@@ -9,13 +9,18 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
     ON EST DANS CONCOURS
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/src/Controller/ZoneFanController.php'|file_link(0) }}">src/Controller/ZoneFanController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/zone_fan/concours.html.twig'|file_link(0) }}">templates/zone_fan/concours.html.twig</a></code></li>
-    </ul>
+    <br>
+    {% if ceconcours != null %}
+        {{ceconcours.id}} | {{ceconcours.theme}} | du {{ceconcours.datedebut|date('d/m/Y')}} au {{ceconcours.datefin|date('d/m/Y')}} | {{ceconcours.commentconcours}}
+        <br>
+        {% for look in ceconcours.looks|reverse %}
+        {#éventuellement vote redirigevers action qui redirige vers action??? ou utiliser option choice de entitytype ou input indépendant...#}
+            {{look.id}} | {{look.picture}} | {{look.idstyle.id}} | {{look.idstyle.typestyle}}
+            <br>
+        {% endfor %}
+    
+    {% endif %}
 </div>
 {% endblock %}

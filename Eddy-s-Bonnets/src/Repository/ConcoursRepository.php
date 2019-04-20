@@ -47,4 +47,14 @@ class ConcoursRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findOneByDate()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.date_debut <= CURRENT_DATE() AND c.date_fin >= CURRENT_DATE()')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    
 }

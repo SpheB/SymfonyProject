@@ -11,6 +11,7 @@ use App\Form\FanPseudoType;
 use App\Form\FanAvatarType;
 use App\Entity\Fan;
 use App\Entity\FanComment;
+use App\Entity\Concours;
 
 
 class ZoneFanController extends AbstractController {
@@ -118,11 +119,6 @@ class ZoneFanController extends AbstractController {
         $vars = ['formulaireEmailFan' => $formulaireEmailFan->createView(), 'formulairePseudoFan' => $formulairePseudoFan->createView(), 'formulaireAvatarFan' => $formulaireAvatarFan->createView()];
         return $this->render('zone_fan/profileUpdate.html.twig', $vars);
     }
-
-    //ici les concours ne peuvent être vus ET participés par Fans connectés. Si peuvent être vus par tous peut-être changer de place???
-    /**
-     * @Route("/zone/fan/concours", name="fanConcours")
-     */
     
     /**
      * @Route("/zone/fan/fan/comments/delete/{idfancomment}", name="fan_fanComment_delete")
@@ -136,12 +132,19 @@ class ZoneFanController extends AbstractController {
         //return redirectoaction tous fans
         return $this->redirect("/looks");
     }
-            
-            
+    
+//ici les concours ne peuvent être vus ET participés par Fans connectés. Si peuvent être vus par tous peut-être changer de place???
+    /**
+     * @Route("/zone/fan/concours", name="fanConcours")
+     */            
     public function concours() {
-        return $this->render('zone_fan/profile.html.twig', [
-                    'controller_name' => 'ZoneFanController',
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $ceconcours = $em->getRepository(Concours::class)->findOneByDate();
+        //dump($ceconcours);
+        //die();
+        $vars = ['ceconcours' => $ceconcours];
+
+        return $this->render('zone_fan/concours.html.twig', $vars);
     }
 
 }
