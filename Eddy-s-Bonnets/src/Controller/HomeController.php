@@ -11,7 +11,7 @@ use App\Entity\Look;
 use App\Entity\Style;
 use App\Entity\FanComment;
 use App\Form\MailType;
-use App\form\FanCommentType;
+use App\Form\FanCommentType;
 
 class HomeController extends AbstractController {
 
