@@ -3,38 +3,73 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">News List</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
 
-    <div class="example-wrapper">
-        <h1>News</h1>
+                        {% for valeur in mesnews|reverse %}
+                            {% if loop.index is odd  %}
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6 nopaddingleftright blog-list-item mb90">
+                                        <div class="hover-effect smoothie mb40">
+                                            <a href="#" class="smoothie">
+                                                <img src="assets/images/blog/blog-1.jpg" alt="Image" class="img-responsive smoothie"></a>
+                                            <div class="hover-overlay smoothie text-center">
+                                                <div class="vertical-align-bottom">
+                                                    <h4>{{valeur.titre}}</h4>
+                                                    <span class="item-category-span">{{valeur.datenews|date('d/m/Y')}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 blog-list-item mb90">
+                                        <h4>{{valeur.titre}}</h4>
+                                        <p class="mb20">{{valeur.textnews}} </p>
+                                    </div>
+                                </div>
+                            {%else%}
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6  blog-list-item mb90">
+                                        <h4>{{valeur.titre}}</h4>
+                                        <p class="mb20">{{valeur.textnews}} </p>
+                                    </div>
+                                    <div class="col-sm-6 nopaddingleftright blog-list-item mb90">
+                                        <div class="hover-effect smoothie mb40">
+                                            <a href="#" class="smoothie">
+                                                <img src="assets/images/blog/blog-1.jpg" alt="Image" class="img-responsive smoothie"></a>
+                                            <div class="hover-overlay smoothie text-center">
+                                                <div class="vertical-align-bottom">
+                                                    <h4>{{valeur.titre}}</h4>
+                                                    <span class="item-category-span">{{valeur.datenews|date('d/m/Y')}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
 
-        ON EST DANS NEWS
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-            <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/home/news.html.twig'|file_link(0) }}">templates/home/news.html.twig</a></code></li>
-        </ul>
-    </div>
+                        {% endfor %}   
 
-    <br>
-    <br>
-    <br>
-    {% for valeur in mesnews|reverse %}
-        <ul>
-            {% if loop.index is odd  %}
-                <li> {{ loop.index }}</li>
-            {%else%}
-            test
-            {% endif %}
-            <li>{{valeur.id}} </li>
-            <li>{{valeur.titre}} </li>
-            <li>{{valeur.textnews}} </li>
-            <li>{{valeur.datenews|date('d/m/Y')}} </li>
-        </ul>
-    {% endfor %}   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--
+
+
+    -----------------------------------------
+
 
 
     <section class="white-wrapper">
@@ -118,6 +153,7 @@
             </div>
         </div>
     </section>
+-->
 
 {% endblock %}
 
