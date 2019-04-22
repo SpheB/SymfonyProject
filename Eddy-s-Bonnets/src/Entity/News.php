@@ -36,6 +36,11 @@ class News
      */
     private $picture_news;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $accroche;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class News
     public function setPictureNews($picture_news)
     {
         $this->picture_news = $picture_news;
+
+        return $this;
+    }
+
+    public function getAccroche(): ?string
+    {
+        return $this->accroche;
+    }
+
+    public function setAccroche(?string $accroche): self
+    {
+        $this->accroche = $accroche;
 
         return $this;
     }
