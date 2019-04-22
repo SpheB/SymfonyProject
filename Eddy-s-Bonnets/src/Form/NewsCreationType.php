@@ -18,6 +18,7 @@ class NewsCreationType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class)
+            ->add('accroche', TextType::class)
             ->add('text_news', TextType::class)
             ->add('date_news', DateType::class, ['widget' => 'single_text',
                     'format' => 'yyyy-MM-dd'])
