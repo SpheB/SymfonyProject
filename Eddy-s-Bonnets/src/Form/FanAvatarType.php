@@ -14,7 +14,7 @@ class FanAvatarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('avatar', FileType::class , array ('label'=>"Sélectionner une nouvelle image avatar "))
+            ->add('avatar', FileType::class , array ('label'=>"Sélectionnez une nouvelle image avatar "))
         ;
     }
 
