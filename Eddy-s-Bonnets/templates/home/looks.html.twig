@@ -3,67 +3,142 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="example-wrapper">
-        <h1>Looks! ✅</h1>
-
-        ON EST DANS LOOKS
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-            <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony4Cours/SymfonyProject/Eddy-s-Bonnets/templates/home/looks.html.twig'|file_link(0) }}">templates/home/looks.html.twig</a></code></li>
-        </ul>
-    </div>
-
-    <br>
-    <br>
-    {% for valeur in messtyles %}
-        <div>{{valeur.typestyle}}</div>
-    {% endfor %}
-    <br>
-    <br>
-    <br>
-    {% for valeur in meslooks|reverse %}
-        <ul>
-            <li>{{valeur.id}} </li>
-            <li>{{valeur.idstyle.typestyle}} </li>
-            <li>{{valeur.picture}} </li>
-            <li>{{valeur.description}} </li>
-            <li>{{valeur.likes}} </li>
-            <li>
-                {% for comment in valeur.fanComments|reverse %}
-                    <ul>
-                        <ul>
-                            <li>{{comment.id}}</li>
-                            <li>{{comment.textcomment}} </li>
-                            <li>{{comment.datecomment|date('d/m/Y')}} </li>
-                            <li>{{comment.idfan.id}} | {{comment.idfan.pseudo}}</li>
-                                {% if app.user.id == comment.idfan.id %}
-                                <a class="btn" href="/zone/fan/fan/comments/delete/{{comment.id}}">Supprimer</a>
-                            {% endif %}
+    <section class="white-wrapper">
+        <div class="section-inner nopaddingbottom"> 
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12 text-center match-height">
+                        <h3 class="section-title">Portfolio Grid</h3>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-sm-12 text-center match-height">
+                        <ul class="masonry-portfolio-filter list-unstyled list-inline wow fadeIn text-center vertical-center-js" data-wow-delay="0.2s">
+                            <li><a style="margin-bottom: 15px;" class="btn btn-primary btn-transparent active" href="#" data-filter="*">All</a></li>
+                                {% for valeur in messtyles %}
+                                <li><a style="margin-bottom: 15px;" class="btn btn-primary btn-transparent" href="#" data-filter= "{{'.style' ~ valeur.id}}">{{valeur.typestyle}}</a></li>
+                                {% endfor %}    
+                            <li><a style="margin-bottom: 15px;" class="btn btn-primary btn-transparent" href="#" data-filter= ".contestwinner">Contest Winners</a></li>
                         </ul>
-                    </ul>
-                {% endfor %}
-            </li>  
-           
-            {#
-            {% if app.user.id != null %}
-                {{ form_start (formulaireFanComment) }}
-                <br>
-                <br>
-                {{ form_row(formulaireFanComment.text_comment, {'value' : 'cfrtcyfcycyfcytcyt'})}}
-                {{ form_row(formulaireFanComment.id_look, {'value' : ""~valeur.id~""}) }}
-                {{ form_row(formulaireFanComment.id_fan, {'value' : ""~app.user.id~""}) }}
+                    </div>
+                </div>
+            </div>   
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="masonry-portfolio row">
+                                    <div>
+                                        <div class="masonry-portfolio-items">
+                                            <div class="row">
+                                                {% for valeur in meslooks|reverse %}
+                                                    {% if valeur.concourss|length > 0  %}
+                                                        <div class="{{'col-sm-4 masonry-portfolio-item mb30 contestwinner style' ~ valeur.idstyle.id}}">
+                                                            <div class="hover-effect smoothie">
+                                                                <a href="#" class="smoothie">
+                                                                    <img src="{{ asset('/dossierFichiers/' ~ valeur.picture)}}" alt="Image" class="img-responsive smoothie"></a>
+                                                                <div class="hover-overlay smoothie text-center">
+                                                                    <div class="vertical-align-bottom">
+                                                                        <h4>{{valeur.description}} {{valeur.idstyle.typestyle}} cw</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="hover-caption dark-overlay smoothie text-center">
+                                                                    <div class="vertical-align-bottom">
+                                                                        <a href="single-portfolio.html" class="btn btn-primary mb20">View Details <i class="fa fa-angle-right smoothie"></i></a>
+                                                                        <a href="assets/images/portfolio/folio-1.jpeg" class="lb-link btn btn-primary mb20">View Image <i class="fa fa-plus smoothie"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {%else%}
+                                                        <div class="{{'col-sm-4 masonry-portfolio-item mb30 style' ~ valeur.idstyle.id}}">
+                                                            <div class="hover-effect smoothie">
+                                                                <a href="#" class="smoothie">
+                                                                    <img src="{{ asset('/dossierFichiers/' ~ valeur.picture)}}" alt="Image" class="img-responsive smoothie"></a>
+                                                                <div class="hover-overlay smoothie text-center">
+                                                                    <div class="vertical-align-bottom">
+                                                                        <h4>Bespoke Envelope Design {{valeur.idstyle.typestyle}}</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="hover-caption dark-overlay smoothie text-center">
+                                                                    <div class="vertical-align-bottom">
+                                                                        <a href="single-portfolio.html" class="btn btn-primary mb20">View Details <i class="fa fa-angle-right smoothie"></i></a>
+                                                                        <a href="assets/images/portfolio/folio-1.jpeg" class="lb-link btn btn-primary mb20">View Image <i class="fa fa-plus smoothie"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <input type="submit" class="btn" value="Envoyer" />
-                {{ form_end (formulaireFanComment) }}
-            {% endif %} 
-            #}
-           
-        </ul>
-    {% endfor %}
+    {#
+       {% for valeur in messtyles %}
+           <div>{{valeur.typestyle}}</div>
+       {% endfor %}
+       <br>
+       <br>
+       <br>
+       {% for valeur in meslooks|reverse %}
+           <ul>
+               <li>{{valeur.id}} </li>
+               <li>{{valeur.idstyle.typestyle}} </li>
+               <li>{{valeur.picture}} </li>
+               <li>{{valeur.description}} </li>
+               <li>{{valeur.likes}} </li>
+               <li>
+                   {% for comment in valeur.fanComments|reverse %}
+                       <ul>
+                           <ul>
+                               <li>{{comment.id}}</li>
+                               <li>{{comment.textcomment}} </li>
+                               <li>{{comment.datecomment|date('d/m/Y')}} </li>
+                               <li>{{comment.idfan.id}} | {{comment.idfan.pseudo}}</li>
+                               {% if app.user.id == comment.idfan.id %}
+                                   <a class="btn" href="/zone/fan/fan/comments/delete/{{comment.id}}">Supprimer</a>
+                               {% endif %}
+                           </ul>
+                       </ul>
+                   {% endfor %}
+                   {% if valeur.concourss|length > 0 %}
+                       {% for concours in valeur.concourss|reverse %}
+                           <ul>
+                               <li>concours: {{concours.id}}</li>
+                           </ul>                     
+                       {% endfor %}   
+                   {% else %}
+                       pas encore de concours
+                   {% endif %}
+   
+               </li>  
+   
+               {#
+               {% if app.user.id != null %}
+                   {{ form_start (formulaireFanComment) }}
+                   <br>
+                   <br>
+                   {{ form_row(formulaireFanComment.text_comment, {'value' : 'cfrtcyfcycyfcytcyt'})}}
+                   {{ form_row(formulaireFanComment.id_look, {'value' : ""~valeur.id~""}) }}
+                   {{ form_row(formulaireFanComment.id_fan, {'value' : ""~app.user.id~""}) }}
+   
+                   <input type="submit" class="btn" value="Envoyer" />
+                   {{ form_end (formulaireFanComment) }}
+               {% endif %} 
+               #}
+
+    {#</ul>
+{% endfor %}
+    #}
 {% endblock %}
