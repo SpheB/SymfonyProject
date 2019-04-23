@@ -94,6 +94,23 @@ class HomeController extends AbstractController {
     }
 
     /**
+     * @Route("/looks/one/{idlook}", name="looks_one")
+     */
+    public function looksOne(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $replook = $em->getRepository(Look::class);
+
+        $nbr = $req->get('idlook');
+        $monlook = $replook->find($nbr);
+
+        $vars = ['look' => $monlook];
+        //dump($vars);
+        //die();
+
+        return $this->render('home/lookOne.html.twig', $vars);
+    }
+    
+    /**
      * @Route("/news", name="news")
      */
     public function news() {
