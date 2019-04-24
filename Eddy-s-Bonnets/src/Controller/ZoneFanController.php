@@ -126,7 +126,7 @@ class ZoneFanController extends AbstractController {
     public function FanCommentDelete(Request $req){
         $em = $this->getDoctrine()->getManager();
         $unfancomment = $em->getRepository(FanComment::class)->find($req->get('idfancomment'));
-        $em->remove($uncomment);
+        $em->remove($unfancomment);
         $em->flush();
 
         //return redirectoaction tous fans

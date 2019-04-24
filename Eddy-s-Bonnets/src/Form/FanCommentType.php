@@ -17,15 +17,15 @@ class FanCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('text_comment', TextareaType::class)
-            ->add('id_look', EntityType::class, [
-                    'class' => 'App\Entity\Look',
-                    'choice_label' => 'id',
-                ])
-            ->add('id_fan', EntityType::class, [
-                    'class' => 'App\Entity\Fan',
-                    'choice_label' => 'id',
-                ])
+            ->add('text_comment', TextareaType::class, array('label'=>false))
+            //->add('id_look', EntityType::class, [
+            //        'class' => 'App\Entity\Look',
+            //        'choice_label' => 'id',
+            //    ])
+            //->add('id_fan', EntityType::class, [
+            //        'class' => 'App\Entity\Fan',
+             //       'choice_label' => 'id',
+             //   ])
         ;
     }
 

@@ -51,7 +51,7 @@
                                         {#onMouseOut aussi si besoin#}
                                 </div>
                             </div>
-                            <br>                        <br>
+                            <br><br>
                         </div>
                     </div
                     <div class="white-wrapper">
@@ -67,6 +67,26 @@
                                             </div>
                                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                 <div class="panel-body">
+
+                                                    <div class="col-sm-12 mb40 text-center">        
+                                                        {% if app.user != null%}
+                                                            
+                                                            <!--<button class="btn btn-primary mt30" href="/login">Laissez un commentaire!</button>-->
+
+                                                            {{ form_start (formulaireFanComment) }}
+                                  
+                                                            <br>
+                                                            {{ form_row(formulaireFanComment.text_comment, { 'attr': {'placeholder': 'Tapez un commentaire!', 'class': 'form-control  mb20'} })}}
+
+                                                            <input type="submit" class="btn  btn-primary mt30 pull-right" value="Envoyer" />
+                                                            <!--<button class="btn  btn-primary mt30 pull-right">Register</button>-->
+
+                                                            {{ form_end (formulaireFanComment) }}
+                                                        {%else%}
+                                                            <br>
+                                                            <a class="btn btn-primary mt30" href="/login">Identifiez-vous pour laisser un commentaire</a>
+                                                        {% endif %}
+                                                    </div>
 
                                                     {% for comment in look.fanComments|reverse %}
                                                         <div class="col-sm-12">
@@ -92,28 +112,12 @@
                                                                 </div> 
                                                                 <div class="col-sm-12">
                                                                     {% if app.user != null and app.user.id == comment.idfan.id %}
-                                                                        <a class="btn" href="/zone/fan/fan/comments/delete/{{comment.id}}">Supprimer</a>
+                                                                        <a class="btn btn-primary mt30 pull-right" href="/zone/fan/fan/comments/delete/{{comment.id}}">Supprimer</a>
                                                                     {% endif %}
                                                                 </div> 
                                                             </div>
                                                         </div>
-
-
-                                                        {#----------------------------------------------
-                                                        <li>{{comment.id}}</li>
-                                                        <li>{{comment.textcomment}} </li>
-                                                        <li>{{comment.datecomment|date('d/m/Y')}} </li>
-                                                        <li>{{comment.idfan.id}} | {{comment.idfan.pseudo}}</li>
-                                                            {% if app.user.id == comment.idfan.id %}
-                                                            <a class="btn" href="/zone/fan/fan/comments/delete/{{comment.id}}">Supprimer</a>
-                                                        {% endif %}#}
-
                                                     {% endfor %}
-
-
-
-
-
 
                                                 </div>
                                             </div>
