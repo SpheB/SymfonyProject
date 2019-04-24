@@ -48,6 +48,16 @@ class Look
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date_look;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $descr_long;
+
     public function __construct()
     {
         $this->concourss = new ArrayCollection();
@@ -165,6 +175,30 @@ class Look
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDateLook(): ?\DateTimeInterface
+    {
+        return $this->date_look;
+    }
+
+    public function setDateLook(?\DateTimeInterface $date_look): self
+    {
+        $this->date_look = $date_look;
+
+        return $this;
+    }
+
+    public function getDescrLong(): ?string
+    {
+        return $this->descr_long;
+    }
+
+    public function setDescrLong(string $descr_long): self
+    {
+        $this->descr_long = $descr_long;
 
         return $this;
     }
