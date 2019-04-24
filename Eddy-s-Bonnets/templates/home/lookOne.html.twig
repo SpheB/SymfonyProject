@@ -46,9 +46,12 @@
                                             {% endfor %}   
                                         </p>
                                     {% endif %}
-                                    <p class="mt30"><button onMouseOver="this.style.backgroundColor = '#F64747';
-                                            this.style.borderColor = '#F64747'" style="cursor: auto" class="btn btn-primary btn-theme page-scroll">{{look.likes}} likes</button><button href="" class="btn btn-primary btn-theme page-scroll">LIKE ♥</button></p>
-                                        {#onMouseOut aussi si besoin#}
+                                    <p class="mt30">
+                                        <button id="currentlikes" onMouseOver="this.style.backgroundColor = '#F64747';
+                                                this.style.borderColor = '#F64747'" style="cursor: auto" class="btn btn-primary btn-theme page-scroll">{{look.likes}} likes</button>
+                                        <button id="likebtn" class="btn btn-primary btn-theme page-scroll">LIKE ♥</button>
+                                    </p>
+                                    {#onMouseOut aussi si besoin#}
                                 </div>
                             </div>
                             <br><br>
@@ -70,11 +73,11 @@
 
                                                     <div class="col-sm-12 mb40 smoothie text-center">        
                                                         {% if app.user != null%}
-                                                            
+
                                                             <!--<button class="btn btn-primary mt30" href="/login">Laissez un commentaire!</button>-->
 
                                                             {{ form_start (formulaireFanComment) }}
-                                  
+
                                                             <br>
                                                             {{ form_row(formulaireFanComment.text_comment, { 'attr': {'placeholder': 'Tapez un commentaire!', 'class': 'form-control  mb20'} })}}
 
@@ -132,4 +135,43 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        console.log('meh test');
+
+        likebtn.addEventListener("click", function (event) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    console.log("passé 400");
+
+                    if (xhr.status == 200) {
+                        console.log("passé 200");
+                        console.log(xhr.responseText);
+
+                        var reponse = JSON.parse(xhr.responseText);
+                        console.log(reponse);
+                        currentlikes.innerHTML = reponse.likeslook;
+                        console.log(typeof (reponse));
+                    } else {
+                        console.log("pas passé 200");
+                        console.log(xhr.reponseText);
+                    }
+
+                }
+            }
+
+            xhr.open("POST", "/looks/traitement");
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("idlook=1");
+
+        });
+
+    </script>
+    {# put additional JS here #}
 {% endblock %}

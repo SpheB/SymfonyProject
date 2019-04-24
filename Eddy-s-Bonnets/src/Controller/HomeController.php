@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use DateTime;
 use App\Entity\News;
 use App\Entity\Look;
@@ -95,6 +97,19 @@ class HomeController extends AbstractController {
         //die();
 
         return $this->render('home/lookOne.html.twig', $vars);
+    }
+
+    /**
+     * @Route ("/looks/traitement");
+     */
+    public function lookOneTraitementAjax(Request $reqAjax) {
+        //dump('fuck');
+        //die();
+        $idlook = $reqAjax->get('idlook');
+        //dump($idlook);
+        //die();
+        $arrayReponse = ['likeslook' => '1' . ' test'];
+        return new JsonResponse($arrayReponse);
     }
 
     /**
