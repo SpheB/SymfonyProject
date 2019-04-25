@@ -156,14 +156,20 @@ class HomeController extends AbstractController {
 
             $mailer->send($message);
 
-            return $this->render('home/index.html.twig', [
-                        'controller_name' => 'HomeController',
-            ]);
+            return $this->render('home/index.html.twig');
         } else {
 
             $vars = ['formulaireMail' => $monFormulaire->createView()];
             return $this->render('home/contact.html.twig', $vars);
         }
+    }
+
+    /**
+     * @Route ("/page_logout")
+     */
+    public function logout() {
+
+        return $this->render('home/index.html.twig');
     }
 
 }
