@@ -12,7 +12,8 @@ use App\Form\FanAvatarType;
 use App\Entity\Fan;
 use App\Entity\FanComment;
 use App\Entity\Concours;
-
+use App\Entity\Look;
+use App\Entity\Vote;
 
 class ZoneFanController extends AbstractController {
 
@@ -42,7 +43,7 @@ class ZoneFanController extends AbstractController {
         $vars = ['monprofil' => $monprofil];
         return $this->render('zone_fan/profile.html.twig', $vars);
     }
-    
+
     /**
      * @Route("/zone/fan/profile", name="FanProfile")
      */
@@ -75,8 +76,7 @@ class ZoneFanController extends AbstractController {
             //die();
             $em->flush();
             //return new Response("Email uploaded et BD mise à jour!");
-        }
-        else if ($formulairePseudoFan->isSubmitted() && $formulairePseudoFan->isValid()) {
+        } else if ($formulairePseudoFan->isSubmitted() && $formulairePseudoFan->isValid()) {
             //die();
 
             $em = $this->getDoctrine()->getManager();
@@ -90,8 +90,7 @@ class ZoneFanController extends AbstractController {
 
             $em->flush();
             //return new Response("Pseudo uploaded et BD mise à jour!");
-        } 
-        else if ($formulaireAvatarFan->isSubmitted() && $formulaireAvatarFan->isValid()) {
+        } else if ($formulaireAvatarFan->isSubmitted() && $formulaireAvatarFan->isValid()) {
             //die();
             // obtenir le fichier (pas un "string" mais un objet de la class UploadedFile)
             $fichier = $cefan->getAvatar();
@@ -101,7 +100,6 @@ class ZoneFanController extends AbstractController {
             // stocker le fichier dans le serveur (on peut indiquer un dossier)
             $fichier->move("dossierFichiers", $nomFichierServeur);
             // affecter le nom du fichier de l'entité. Ça sera le nom qu'on aura dans la BD (un string, pas un objet UploadedFile cette fois)
-
             //si j'ai le temps, supprimer le fichier précédant de la base de donnée???
             $em = $this->getDoctrine()->getManager();
             $rep = $em->getRepository(Fan::class);
@@ -119,11 +117,11 @@ class ZoneFanController extends AbstractController {
         $vars = ['formulaireEmailFan' => $formulaireEmailFan->createView(), 'formulairePseudoFan' => $formulairePseudoFan->createView(), 'formulaireAvatarFan' => $formulaireAvatarFan->createView()];
         return $this->render('zone_fan/profileUpdate.html.twig', $vars);
     }
-    
+
     /**
      * @Route("/zone/fan/fan/comments/delete/{idfancomment}", name="fan_fanComment_delete")
      */
-    public function FanCommentDelete(Request $req){
+    public function FanCommentDelete(Request $req) {
         $em = $this->getDoctrine()->getManager();
         $unfancomment = $em->getRepository(FanComment::class)->find($req->get('idfancomment'));
         $em->remove($unfancomment);
@@ -132,11 +130,11 @@ class ZoneFanController extends AbstractController {
         //return redirectoaction tous fans
         return $this->redirect("/looks");
     }
-    
+
 //ici les concours ne peuvent être vus ET participés par Fans connectés. Si peuvent être vus par tous peut-être changer de place???
     /**
      * @Route("/zone/fan/concours", name="fanConcours")
-     */            
+     */
     public function concours() {
         $em = $this->getDoctrine()->getManager();
         $ceconcours = $em->getRepository(Concours::class)->findOneByDate();
@@ -145,6 +143,27 @@ class ZoneFanController extends AbstractController {
         $vars = ['ceconcours' => $ceconcours];
 
         return $this->render('zone_fan/concours.html.twig', $vars);
+    }
+
+    /**
+     * @Route("/zone/fan/concours/calcul/{idconcours}/{idlook}", name="fanConcoursCalcul")
+     */
+    public function concoursCalcul(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $concoursnow = $em->getRepository(Concours::class)->find($req->get('idconcours'));
+        $lookchoisi = $em->getRepository(Look::class)->find($req->get('idlook'));
+
+        $votenow = new Vote();
+        $votenow->setDateVote(new DateTime());
+        $votenow->setIdConcours($concoursnow);
+        $votenow->setIdLook($lookchoisi);
+        $votenow->setIdFan($this->getUser());
+
+        //dump($ceconcours);
+        //die();
+        $vars = ['lookchoisi' => $lookchoisi];
+
+        return $this->redirect("/zone/fan/concours");
     }
 
 }

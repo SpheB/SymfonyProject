@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 use DateTime;
 use App\Entity\News;
 use App\Entity\Look;
@@ -103,12 +102,21 @@ class HomeController extends AbstractController {
      * @Route ("/looks/traitement");
      */
     public function lookOneTraitementAjax(Request $reqAjax) {
+        $em = $this->getDoctrine()->getManager();
+        $replook = $em->getRepository(Look::class);
         //dump('fuck');
         //die();
         $idlook = $reqAjax->get('idlook');
         //dump($idlook);
         //die();
-        $arrayReponse = ['likeslook' => '1' . ' test'];
+        $monlook = $replook->find($idlook);
+
+        $nbrlikes = $monlook->getLikes();
+        $nbrlikesnow = $nbrlikes + 1;
+        $monlook->setLikes($nbrlikesnow);
+        $em->flush();
+
+        $arrayReponse = ['likeslook' => $nbrlikesnow . ' likes'];
         return new JsonResponse($arrayReponse);
     }
 
