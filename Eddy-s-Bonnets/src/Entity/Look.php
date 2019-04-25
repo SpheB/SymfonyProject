@@ -58,10 +58,16 @@ class Look
      */
     private $descr_long;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="id_look")
+     */
+    private $votes;
+
     public function __construct()
     {
         $this->concourss = new ArrayCollection();
         $this->fanComments = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,6 +205,37 @@ class Look
     public function setDescrLong(string $descr_long): self
     {
         $this->descr_long = $descr_long;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setIdLook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->votes->contains($vote)) {
+            $this->votes->removeElement($vote);
+            // set the owning side to null (unless already changed)
+            if ($vote->getIdLook() === $this) {
+                $vote->setIdLook(null);
+            }
+        }
 
         return $this;
     }

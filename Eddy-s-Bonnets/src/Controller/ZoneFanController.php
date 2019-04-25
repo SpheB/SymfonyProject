@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use DateTime;
 use App\Form\FanEmailType;
 use App\Form\FanPseudoType;
 use App\Form\FanAvatarType;
@@ -153,15 +154,19 @@ class ZoneFanController extends AbstractController {
         $concoursnow = $em->getRepository(Concours::class)->find($req->get('idconcours'));
         $lookchoisi = $em->getRepository(Look::class)->find($req->get('idlook'));
 
+        //dump($lookchoisi);
+        //dump($req->get('idlook'));
+
         $votenow = new Vote();
         $votenow->setDateVote(new DateTime());
         $votenow->setIdConcours($concoursnow);
         $votenow->setIdLook($lookchoisi);
         $votenow->setIdFan($this->getUser());
 
-        //dump($ceconcours);
+        //dump($votenow);
         //die();
-        $vars = ['lookchoisi' => $lookchoisi];
+        $em->persist($votenow);
+        $em->flush();
 
         return $this->redirect("/zone/fan/concours");
     }

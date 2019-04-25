@@ -32,6 +32,11 @@ class Vote
      */
     private $id_fan;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Look", inversedBy="votes")
+     */
+    private $id_look;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Vote
     public function setIdFan(?fan $id_fan): self
     {
         $this->id_fan = $id_fan;
+
+        return $this;
+    }
+
+    public function getIdLook(): ?Look
+    {
+        return $this->id_look;
+    }
+
+    public function setIdLook(?Look $id_look): self
+    {
+        $this->id_look = $id_look;
 
         return $this;
     }
