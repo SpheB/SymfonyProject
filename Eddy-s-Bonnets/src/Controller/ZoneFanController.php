@@ -139,9 +139,10 @@ class ZoneFanController extends AbstractController {
     public function concours() {
         $em = $this->getDoctrine()->getManager();
         $ceconcours = $em->getRepository(Concours::class)->findOneByDate();
+        $pastvote =  $em->getRepository(Vote::class)->findOneBy(array ('id_concours'=>$ceconcours, 'id_fan'=>$this->getUser()));
         //dump($ceconcours);
         //die();
-        $vars = ['ceconcours' => $ceconcours];
+        $vars = ['ceconcours' => $ceconcours, 'pastvote' => $pastvote];
 
         return $this->render('zone_fan/concours.html.twig', $vars);
     }
