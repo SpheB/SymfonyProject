@@ -1,17 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eddy's Admin | Styles{% endblock %}
+
 {% block body %}
 
-    <h1>Tous Les Styles</h1>
-    <br>
-     <a class="btn" href="/zone/admin/styles/creation">Ajouter Style</a>
-    <br>
-    {% for valeur in lesstyles|reverse %}
-        <ul>
-            <li>{{valeur.id}} </li>
-            <li>{{valeur.typestyle}} </li>
+
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">Tous les styles</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
+
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <div class="text-center">        
+                            <a class="btn btn-primary mt30 btn-lg btn-block" href={{"/zone/admin/styles/creation"}}>Add Style</a>
+                        </div>
+                    </div>
 
 
-            <a class="btn" href="/zone/admin/styles/one/{{valeur.id}}">Modifier</a>
-        </ul>
-    {% endfor %}
+                    {% for valeur in lesstyles|reverse %}
+                        <ul>
+                            <li>{{valeur.id}} </li>
+                            <li>{{valeur.typestyle}} </li>
+
+
+                            <a class="btn" href="/zone/admin/styles/one/{{valeur.id}}">Modifier</a>
+                        </ul>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

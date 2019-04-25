@@ -1,25 +1,55 @@
-test
-<ul>
-<li>{{concours.id}} </li>
-<li>
-    {% if concours.gagnant != null %}
-        {{concours.gagnant.id}} | {{concours.gagnant.picture}} | {{concours.gagnant.idstyle.id}} | {{concours.gagnant.idstyle.typestyle}}
-    {% endif %}
-</li>
-<li>{{concours.theme}} </li>
-<li>{{concours.datedebut|date('d/m/Y')}} </li>
-<li>{{concours.datefin|date('d/m/Y')}} </li>
-<li>{{concours.commentconcours}} </li>
-</ul>
-{% for valeur in concours.looks %}
-    <ul>
-        <li>{{valeur.id}} | {{valeur.picture}}</li>
+{% extends 'base.html.twig' %}
+
+{% block title %}Eddy's Admin | Concours Details{% endblock %}
+
+{% block body %}
 
 
-        <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
-    </ul>
-{% endfor %}
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">Concours détails</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
 
-<br>
 
-<a class="btn" href="/zone/admin/concours/delete/{{concours.id}}">Supprimer</a>
+
+
+
+                    <ul>
+                        <li>{{concours.id}} </li>
+                        <li>
+                            {% if concours.gagnant != null %}
+                                {{concours.gagnant.id}} | {{concours.gagnant.picture}} | {{concours.gagnant.idstyle.id}} | {{concours.gagnant.idstyle.typestyle}}
+                            {% endif %}
+                        </li>
+                        <li>{{concours.theme}} </li>
+                        <li>{{concours.datedebut|date('d/m/Y')}} </li>
+                        <li>{{concours.datefin|date('d/m/Y')}} </li>
+                        <li>{{concours.commentconcours}} </li>
+                    </ul>
+                    {% for valeur in concours.looks %}
+                        <ul>
+                            <li>{{valeur.id}} | {{valeur.picture}}</li>
+
+
+                            <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
+                        </ul>
+                    {% endfor %}
+
+                    <br>
+
+                    <a class="btn" href="/zone/admin/concours/delete/{{concours.id}}">Supprimer</a>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

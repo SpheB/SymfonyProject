@@ -1,11 +1,39 @@
-<h1>Look sélectionné:</h1>
+{% extends 'base.html.twig' %}
 
-<ul>
-    <li>{{look.id}} </li>
-    <li>{{look.idstyle.id}} | {{look.idstyle.typestyle}} </li>
-    <li>{{look.picture}} </li>
-    <li>{{look.likes}} </li>
-    <li>{{look.description}} </li>
-</ul>
+{% block title %}Eddy's Admin | Look Details{% endblock %}
 
-<a class="btn" href="/zone/admin/looks/delete/{{look.id}}">Supprimer</a>
+
+{% block body %}
+
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">Look détails</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
+
+
+
+                    <ul>
+                        <li>{{look.id}} </li>
+                        <li>{{look.idstyle.id}} | {{look.idstyle.typestyle}} </li>
+                        <li>{{look.picture}} </li>
+                        <li>{{look.likes}} </li>
+                        <li>{{look.description}} </li>
+                    </ul>
+
+                    <a class="btn" href="/zone/admin/looks/delete/{{look.id}}">Supprimer</a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

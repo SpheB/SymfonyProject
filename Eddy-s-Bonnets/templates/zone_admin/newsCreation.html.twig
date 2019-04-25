@@ -1,13 +1,41 @@
-    {{ form_start (formulaireNews) }}
+{% extends 'base.html.twig' %}
 
-    <br>
-    <br>
-    {{ form_row(formulaireNews.titre)}}
-    {{ form_row(formulaireNews.accroche)}}
-    {{ form_row(formulaireNews.text_news)}}
-    {{ form_row(formulaireNews.date_news)}}
-    {{ form_row(formulaireNews.picture_news)}}
+{% block title %}Eddy's Admin | News Creation{% endblock %}
 
-    
-    <input type="submit" class="btn" value="Envoyer" />
-    {{ form_end (formulaireNews) }}
+
+{% block body %}
+
+
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">News création</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
+
+
+                    {{ form_start (formulaireNews) }}
+
+                    <br>
+                    <br>
+                    {{ form_row(formulaireNews.titre)}}
+                    {{ form_row(formulaireNews.accroche)}}
+                    {{ form_row(formulaireNews.text_news)}}
+                    {{ form_row(formulaireNews.date_news)}}
+                    {{ form_row(formulaireNews.picture_news)}}
+
+
+                    <input type="submit" class="btn" value="Envoyer" />
+                    {{ form_end (formulaireNews) }}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

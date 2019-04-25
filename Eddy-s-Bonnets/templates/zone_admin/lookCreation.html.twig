@@ -1,11 +1,39 @@
-    {{ form_start (formulaireLook) }}
+{% extends 'base.html.twig' %}
 
-    <br>
-    <br>
-    {{ form_row(formulaireLook.picture)}}
-    {{ form_row(formulaireLook.description)}}
-    {{ form_row(formulaireLook.id_style)}}
+{% block title %}Eddy's Admin | Look Creation{% endblock %}
 
-    
-    <input type="submit" class="btn" value="Envoyer" />
-    {{ form_end (formulaireLook) }}
+
+{% block body %}
+
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">Look création</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
+
+                    {{ form_start (formulaireLook) }}
+
+                    <br>
+                    <br>
+                    {{ form_row(formulaireLook.picture)}}
+                    {{ form_row(formulaireLook.description)}}
+                    {{ form_row(formulaireLook.id_style)}}
+
+
+                    <input type="submit" class="btn" value="Envoyer" />
+                    {{ form_end (formulaireLook) }}
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,7 +1,34 @@
-<ul>
-<li>{{style.id}} </li>
-<li>{{style.typestyle}} </li>
-</ul>
+{% extends 'base.html.twig' %}
 
-<a class="btn" href="/zone/admin/styles/delete/{{style.id}}">Supprimer</a>
+{% block title %}Eddy's Admin | Style Details{% endblock %}
 
+{% block body %}
+
+
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">Style détails</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
+
+                    <ul>
+                        <li>{{style.id}} </li>
+                        <li>{{style.typestyle}} </li>
+                    </ul>
+
+                    <a class="btn" href="/zone/admin/styles/delete/{{style.id}}">Supprimer</a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

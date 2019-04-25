@@ -1,26 +1,53 @@
+{% extends 'base.html.twig' %}
 
+{% block title %}Eddy's Admin | Concours{% endblock %}
 
 {% block body %}
 
-    <h1>Tous Les Concours</h1>
-    <br>
-     <a class="btn" href="/zone/admin/concours/creation">New Concours</a>
-    <br>
-    {% for valeur in lesconcours|reverse %}
-        <ul>
-            <li>{{valeur.id}} </li>
-            <li>
-                {% if valeur.gagnant != null %}
-                    {{valeur.gagnant.id}} | {{valeur.gagnant.picture}}
-                {% endif %}
-            </li>
-            <li>{{valeur.theme}} </li>
-            <li>{{valeur.datedebut|date('d/m/Y')}} </li>
-            <li>{{valeur.datefin|date('d/m/Y')}} </li>
-            <li>{{valeur.commentconcours}} </li>
 
-            <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
-        </ul>
-    {% endfor %}
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">Tous les concours</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
+
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <div class="text-center">        
+                            <a class="btn btn-primary mt30 btn-lg btn-block" href={{"/zone/admin/concours/creation"}}>Add Concours</a>
+                        </div>
+                    </div>
+
+
+
+
+                    {% for valeur in lesconcours|reverse %}
+                        <ul>
+                            <li>{{valeur.id}} </li>
+                            <li>
+                                {% if valeur.gagnant != null %}
+                                    {{valeur.gagnant.id}} | {{valeur.gagnant.picture}}
+                                {% endif %}
+                            </li>
+                            <li>{{valeur.theme}} </li>
+                            <li>{{valeur.datedebut|date('d/m/Y')}} </li>
+                            <li>{{valeur.datefin|date('d/m/Y')}} </li>
+                            <li>{{valeur.commentconcours}} </li>
+
+                            <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
+                        </ul>
+                    {% endfor %}
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

@@ -1,37 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eddy's Admin | Fans{% endblock %}
+
 {% block body %}
 
-    <h1>Tous Les Fans</h1>
-    <br>
-    <br>
-    {% for valeur in lesfans %}
-        <ul>
-            <li>{{valeur.id}} </li>
-            <li>{{valeur.email}} </li>
-            <li>{{valeur.pseudo}} </li>
-            <li>{{valeur.avatar}} </li>
-            <li>
-            {% if valeur.isadmin == 1 %}
-                Administrateur
-            {% else %}
-                Regular User
-            {% endif %}
-            <a class="btn" href="/zone/admin/fans/one/{{valeur.id}}">Modifier</a>
-            </li>
 
-            {% for comment in valeur.fanComments|reverse  %}
-                <ul>
-                    <li>{{comment.id}} </li>
-                    <li>{{comment.textcomment}} </li>
-                    <li>{{comment.datecomment|date('d/m/Y')}} </li>
-                    <li>{{comment.idlook.id}} | {{comment.idlook.description}} | {{comment.idlook.idstyle.typestyle}}</li>
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">Tous les fans</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
 
-                    <a class="btn" href="/zone/admin/fan/comments/delete/{{comment.id}}">Supprimer</a>
-                </ul>
-            {% endfor %}
 
-            <a class="btn" href="/zone/admin/fans/delete/{{valeur.id}}">Supprimer</a>
-        </ul>
-        <br>
-    {% endfor %}
+                    {% for valeur in lesfans %}
+                        <ul>
+                            <li>{{valeur.id}} </li>
+                            <li>{{valeur.email}} </li>
+                            <li>{{valeur.pseudo}} </li>
+                            <li>{{valeur.avatar}} </li>
+                            <li>
+                                {% if valeur.isadmin == 1 %}
+                                    Administrateur
+                                {% else %}
+                                    Regular User
+                                {% endif %}
+                                <a class="btn" href="/zone/admin/fans/one/{{valeur.id}}">Modifier</a>
+                            </li>
 
+                            {% for comment in valeur.fanComments|reverse  %}
+                                <ul>
+                                    <li>{{comment.id}} </li>
+                                    <li>{{comment.textcomment}} </li>
+                                    <li>{{comment.datecomment|date('d/m/Y')}} </li>
+                                    <li>{{comment.idlook.id}} | {{comment.idlook.description}} | {{comment.idlook.idstyle.typestyle}}</li>
+
+                                    <a class="btn" href="/zone/admin/fan/comments/delete/{{comment.id}}">Supprimer</a>
+                                </ul>
+                            {% endfor %}
+
+                            <a class="btn" href="/zone/admin/fans/delete/{{valeur.id}}">Supprimer</a>
+                        </ul>
+                        <br>
+                    {% endfor %}
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>>
 {% endblock %}

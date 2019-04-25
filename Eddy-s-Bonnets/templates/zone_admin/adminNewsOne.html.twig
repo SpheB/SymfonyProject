@@ -1,10 +1,40 @@
-<ul>
-<li>{{news.id}} </li>
-<li>{{news.titre}} </li>
-<li>{{news.accroche}} </li>
-<li>{{news.textnews}} </li>
-<li>{{news.datenews|date('d/m/Y')}} </li>
-<li>{{news.picturenews}} </li>
-</ul>
+{% extends 'base.html.twig' %}
 
-<a class="btn" href="/zone/admin/news/delete/{{news.id}}">Supprimer</a>
+{% block title %}Eddy's Admin | News Details{% endblock %}
+
+
+{% block body %}
+
+
+    <section class="white-wrapper">
+        <div class="section-inner">
+            <div class="container">
+                <div class="row mb60 text-center">
+                    <div class="col-sm-12">
+                        <h3 class="section-title">News détails</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb40">
+
+
+
+                    <ul>
+                        <li>{{news.id}} </li>
+                        <li>{{news.titre}} </li>
+                        <li>{{news.accroche}} </li>
+                        <li>{{news.textnews}} </li>
+                        <li>{{news.datenews|date('d/m/Y')}} </li>
+                        <li>{{news.picturenews}} </li>
+                    </ul>
+
+                    <a class="btn" href="/zone/admin/news/delete/{{news.id}}">Supprimer</a>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
