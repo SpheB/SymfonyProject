@@ -34,9 +34,10 @@ class HomeController extends AbstractController {
             $repvote = $em->getRepository(Vote::class);
 
             $votegagnant = $repvote->findByExampleField($concoursToUpdateMaybe[$i]);
-
-            dump($votegagnant[0]->getIdLook());
-            if ($votegagnant[0] != null) {
+            dump($votegagnant);
+            //die();
+            //dump($votegagnant[0]->getIdLook());
+            if ($votegagnant != null) {
                 $concoursToUpdateMaybe[$i]->setGagnant($votegagnant[0]->getIdLook());
                  $em->flush();
             }

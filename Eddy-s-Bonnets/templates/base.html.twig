@@ -108,7 +108,9 @@
                         <ul class="secondary-menu list-inline pull-right">
                             <li><a href="/contact">Contact</a></li>
                                 {% if app.user != null %}
-                                <li><a href="/zone/admin">admin</a></li>
+                                    {% if app.user.isadmin == 1 %}
+                                    <li><a href="/zone/admin">admin</a></li>
+                                    {% endif %}
                                 <li><a href="/zone/fan/profile">profil</a></li>
                                 <li><a href="{{ path('logout') }}">Logout</a></li>
                                 {% endif %}

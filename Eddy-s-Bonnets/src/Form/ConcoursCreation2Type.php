@@ -22,6 +22,7 @@ class ConcoursCreation2Type extends AbstractType {
                     'format' => 'yyyy-MM-dd'])
                 ->add('comment_concours', TextareaType::class, array('label' => "Commentaires: "))
                 ->add('looks', EntityType::class, [
+                    'label' => 'Sélection des looks participants',
                     'class' => 'App\Entity\Look',
                     'choice_label' => 'picture',
                     'multiple' => true,

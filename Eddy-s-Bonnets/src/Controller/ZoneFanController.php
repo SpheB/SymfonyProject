@@ -20,13 +20,14 @@ class ZoneFanController extends AbstractController {
 
     /**
      * @Route("/zone/fan", name="zone_fan")
-     */
+     
     public function index() {
         return $this->render('zone_fan/index.html.twig', [
                     'controller_name' => 'ZoneFanController',
         ]);
     }
-
+    */
+    
     /**
      * @Route("/zone/fan/profile/version1", name="fanProfile")
      */
@@ -129,7 +130,7 @@ class ZoneFanController extends AbstractController {
         $em->flush();
 
         //return redirectoaction tous fans
-        return $this->redirect("/looks");
+        return $this->redirect("/looks/one/" . $unfancomment->getIdLook()->getId());
     }
 
 //ici les concours ne peuvent être vus ET participés par Fans connectés. Si peuvent être vus par tous peut-être changer de place???

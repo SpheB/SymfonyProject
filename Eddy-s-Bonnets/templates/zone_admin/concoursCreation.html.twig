@@ -26,7 +26,7 @@
                             <div class="col-sm-4 text-uppercase text-muted">
                                 {{ form_label(formulaireConcours.theme) }}
                             </div>
-                            <div class="col-sm-8 text-uppercase text-muted">
+                            <div class="col-sm-7 text-uppercase text-muted">
                                 {{ form_widget(formulaireConcours.theme, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                             <div class="col-sm-4 text-uppercase text-muted">
                                 {{ form_label(formulaireConcours.comment_concours) }}
                             </div>
-                            <div class="col-sm-8 text-uppercase text-muted">
+                            <div class="col-sm-7 text-uppercase text-muted">
                                 {{ form_widget(formulaireConcours.comment_concours, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             <div class="col-sm-4 text-uppercase text-muted">
                                 {{ form_label(formulaireConcours.date_debut) }}
                             </div>
-                            <div class="col-sm-8 text-uppercase text-muted">
+                            <div class="col-sm-7 text-uppercase text-muted">
                                 {{ form_widget(formulaireConcours.date_debut, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
                             </div>
                         </div>
@@ -53,22 +53,47 @@
                             <div class="col-sm-4 text-uppercase text-muted">
                                 {{ form_label(formulaireConcours.date_fin) }}
                             </div>
-                            <div class="col-sm-8 text-uppercase text-muted">
+                            <div class="col-sm-7 text-uppercase text-muted">
                                 {{ form_widget(formulaireConcours.date_fin, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
                             </div>
                         </div>
 
-
-                        {#!!!!!!!!!!!!!!!!!!!!!
-                    <div class="col-sm-12">
-                        <div class="col-sm-4 text-uppercase text-muted">
-                            {{ form_label(formulaireConcours.looks) }}
-                        </div>
-                        <div class="col-sm-8 text-uppercase text-muted">
-                            {{ form_widget(formulaireConcours.looks, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
-                        </div>
                     </div>
-                        !!!!!!!!!!!!!!!!!!!!!!!#}
+
+                    <div class="col-sm-10 col-sm-offset-1 nopaddingleftright">
+
+                        <div class="col-sm-12 text-center">
+                            <div class="col-sm-12 text-uppercase text-muted text-center">
+                                <br>
+                                <br>
+                                <h3>{{ form_label(formulaireConcours.looks) }}</h3>
+                                <br>
+                                <br>
+                            </div>
+                            <div id="lookchoice" class="col-sm-12 text-uppercase text-muted text-center">
+                                {#{ form_widget(formulaireConcours.looks, { 'attr': {'class': ' col-md-4 mb20'} }) }#}
+                                {% for child in formulaireConcours.looks %}
+                                    <!--mettre taille par défaut pour que si descr/img trop longue ne patrent pas partout? -->
+                                    <div class="col-sm-3 text-center">
+
+                                        <div class="col-sm-12 nopaddingbottom ">
+                                            {{ form_label(child) }}
+                                        </div>
+                                        <div class="col-sm-12">
+                                            {{ form_widget(child) }}
+                                            {{lookdesc[loop.index0]}}
+                                            <div class="col-sm-12">
+                                                <br>
+                                                <br>                                          
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+
 
                     </div>
 
@@ -112,4 +137,23 @@
         </div>
     </section>
 
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        var labelinputoptions = document.querySelectorAll('#lookchoice label');
+        {#console.log(labelinputoptions[0].textContent);#}
+
+            for (let i = labelinputoptions.length - 1; i >= 0; i--) {
+                var imgchoix = '<img src="/dossierFichiers/' + labelinputoptions[i].textContent + '" alt="Image" class="img-responsive smoothie">';
+        {#console.log(imgchoix);#}
+                labelinputoptions[i].innerHTML = imgchoix;
+            }
+
+    </script>
+    {# put additional JS here #}
 {% endblock %}

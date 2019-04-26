@@ -67,6 +67,20 @@ class ZoneAdminController extends AbstractController {
         $form = $this->createForm(ConcoursCreation2Type::class, $concours);
         $form->handleRequest($request);
 
+        //je retrouve les images des looks choisisables 
+        //grace au formulaire (qui prend leur adresse string comme identifiant-label), 
+        //mais pour leur adjoindre le nom dulook correspondant, je recherche tous les looks
+        $em = $this->getDoctrine()->getManager();
+        $replooks = $em->getRepository(Look::class);
+
+        $leslooks = $replooks->findAll();
+
+        //je fais un tableau avec uniquement les descriptions(nom) car je n'ai besoin que de ça pour le moment
+        $lookdesc = [];
+        for ($i = 0; $i < count($leslooks); $i++) {
+            $lookdesc[] = $leslooks[$i]->getDescription();
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             //dump($concours);die;
             //met dans base de données
@@ -79,7 +93,7 @@ class ZoneAdminController extends AbstractController {
             return $this->redirect("/zone/admin/concours/all");
         } else {
 
-            $vars = ['formulaireConcours' => $form->createView()];
+            $vars = ['formulaireConcours' => $form->createView(), 'lookdesc' => $lookdesc];
             return $this->render('zone_admin/concoursCreation.html.twig', $vars);
         }
     }
