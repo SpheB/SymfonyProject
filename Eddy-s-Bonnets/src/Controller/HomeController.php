@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use DateTime;
+use App\Entity\Concours;
+use App\Entity\Vote;
 use App\Entity\News;
 use App\Entity\Look;
 use App\Entity\Style;
@@ -20,18 +22,35 @@ class HomeController extends AbstractController {
      * @Route("/", name="home")
      */
     public function index() {
-        return $this->render('home/index.html.twig', [
-                    'controller_name' => 'HomeController',
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $repconcours = $em->getRepository(Concours::class);
+
+        //je m'occupe de trouver les councours finis qui n'ont pas de gagnants
+        $concoursToUpdateMaybe = $repconcours->findByConcoursEnCours();
+        //dump('meh', $concoursToUpdateMaybe);
+
+        //voir si on a des votes pour les updater
+        for ($i = 0; $i < count($concoursToUpdateMaybe); $i++) {
+            $repvote = $em->getRepository(Vote::class);
+
+            $votegagnant = $repvote->findByExampleField($concoursToUpdateMaybe[$i]);
+
+            dump($votegagnant[0]->getIdLook());
+            if ($votegagnant[0] != null) {
+                $concoursToUpdateMaybe[$i]->setGagnant($votegagnant[0]->getIdLook());
+                 $em->flush();
+            }
+            //die();
+        }
+       
+        return $this->render('home/index.html.twig');
     }
 
     /**
      * @Route("/about", name="about")
      */
     public function about() {
-        return $this->render('home/about.html.twig', [
-                    'controller_name' => 'HomeController',
-        ]);
+        return $this->render('home/about.html.twig');
     }
 
     //peut être autre controller pour looks???

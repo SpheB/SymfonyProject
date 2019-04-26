@@ -142,6 +142,7 @@
 
     <script>
         console.log('meh test');
+        console.log({{look.id}});
 
         likebtn.addEventListener("click", function (event) {
             var xhr = new XMLHttpRequest();
@@ -168,7 +169,7 @@
 
             xhr.open("POST", "/looks/traitement");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send("idlook=1");
+            xhr.send("idlook=" + {{look.id}});
 
         });
 

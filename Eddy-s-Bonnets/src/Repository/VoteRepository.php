@@ -12,10 +12,9 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Vote[]    findAll()
  * @method Vote[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class VoteRepository extends ServiceEntityRepository
-{
-    public function __construct(RegistryInterface $registry)
-    {
+class VoteRepository extends ServiceEntityRepository {
+
+    public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, Vote::class);
     }
 
@@ -23,28 +22,41 @@ class VoteRepository extends ServiceEntityRepository
     //  * @return Vote[] Returns an array of Vote objects
     //  */
     /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+      public function findByExampleField($value)
+      {
+      return $this->createQueryBuilder('v')
+      ->andWhere('v.exampleField = :val')
+      ->setParameter('val', $value)
+      ->orderBy('v.id', 'ASC')
+      ->setMaxResults(10)
+      ->getQuery()
+      ->getResult()
+      ;
+      }
+     */
 
     /*
-    public function findOneBySomeField($value): ?Vote
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+      public function findOneBySomeField($value): ?Vote
+      {
+      return $this->createQueryBuilder('v')
+      ->andWhere('v.exampleField = :val')
+      ->setParameter('val', $value)
+      ->getQuery()
+      ->getOneOrNullResult()
+      ;
+      }
+     */
+
+    public function findByExampleField($value) {
+        return $this->createQueryBuilder('c')
+                        ->andWhere('c.id_concours = :val')
+                        ->setParameter('val', $value)
+                        ->groupBy('c.id_look')
+                        ->orderBy('COUNT(c.id_look)', 'DESC')
+                        ->setMaxResults(1)
+                        ->getQuery()
+                        ->getResult()
         ;
     }
-    */
+
 }
