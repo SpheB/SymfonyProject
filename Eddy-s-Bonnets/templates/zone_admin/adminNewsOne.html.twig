@@ -20,16 +20,105 @@
 
 
 
-                    <ul>
-                        <li>{{news.id}} </li>
-                        <li>{{news.titre}} </li>
-                        <li>{{news.accroche}} </li>
-                        <li>{{news.textnews}} </li>
-                        <li>{{news.datenews|date('d/m/Y')}} </li>
-                        <li>{{news.picturenews}} </li>
-                    </ul>
 
-                    <a class="btn" href="/zone/admin/news/delete/{{news.id}}">Supprimer</a>
+                    <div class="container">
+                        <div class="row mb40">
+
+                            <table class="table">
+                                <thead>  <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>ID: </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    {{news.id}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>                           
+
+                                    <tr>
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>ACCROCHE: </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    {{news.accroche}} 
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>       
+
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>TITRE: </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    {{news.titre}} 
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>    
+
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>CONTENU: </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    {{news.textnews}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>    
+
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>DATE: </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    {{news.datenews|date('d/m/Y')}} 
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>    
+
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>IMAGE: </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <img src="{{ asset('/dossierFichiers/' ~ news.picturenews)}}" alt="Image" class="img-responsive smoothie">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>    
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <div class="text-center">        
+                            <a class="btn btn-primary mt30 btn-lg btn-block" href="/zone/admin/news/delete/{{news.id}}">Supprimer</a>
+                        </div>
+                    </div>
 
 
                 </div>

@@ -338,7 +338,7 @@ class ZoneAdminController extends AbstractController {
         $em->remove($unenews);
         $em->flush();
 
-        //return redirectoaction tous fans
+        //return redirectoaction tous news
         return $this->redirect("/zone/admin/news/all");
     }
 
@@ -357,12 +357,20 @@ class ZoneAdminController extends AbstractController {
     }
 
     /**
-     * @Route("/zone/admin/fans/update", name="zone_admin_fans_update")
+     * @Route("/zone/admin/fans/one/{idfan}", name="zone_admin_fans_one")
      */
-    public function fansUpdate() {
-        return $this->render('zone_admin/index.html.twig', [
-                    'controller_name' => 'ZoneAdminController',
-        ]);
+    public function fansUpdate(Request $req) {
+        $em = $this->getDoctrine()->getManager();
+        $repnews = $em->getRepository(Fan::class);
+
+        $nbr = $req->get('idfan');
+        $manews = $repnews->find($nbr);
+
+        $vars = ['fan' => $manews];
+        //dump($vars);
+        //die();
+
+        return $this->render('zone_admin/adminFanOne.html.twig', $vars);
     }
 
     /**
@@ -389,7 +397,7 @@ class ZoneAdminController extends AbstractController {
         $em->flush();
 
         //return redirectoaction tous fans
-        return $this->redirect("/zone/admin/fans/all");
+        return $this->redirect("/zone/admin/fans/one/" . $unfancomment->getIdFan()->getId());
     }
 
 }

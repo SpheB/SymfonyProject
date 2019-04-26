@@ -17,18 +17,65 @@
             <div class="container">
                 <div class="row mb40">
 
-                    <ul>
-                        <li>{{style.id}} </li>
-                        <li>{{style.typestyle}} </li>
-                    </ul>
 
-                    <a class="btn" href="/zone/admin/styles/delete/{{style.id}}">Supprimer</a>
+                    <div class="container">
+                        <div class="row mb40">
 
 
+                            
+                            <div class="container">
+                                <div class="row mb40">
 
+                                    <table class="table">
+                                        <thead>  <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th></thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-6">
+                                                            <strong>ID: </strong>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{style.id}}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>                           
+
+                                            <tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-6">
+                                                            <strong>TYPE DE STYLE: </strong>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            {{style.typestyle}}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>                           
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                                                        
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <div class="text-center">        
+                                    <a class="btn btn-primary mt30 btn-lg btn-block" href="/zone/admin/styles/delete/{{style.id}}">Supprimer</a>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
-{% endblock %}
+            {% endblock %}

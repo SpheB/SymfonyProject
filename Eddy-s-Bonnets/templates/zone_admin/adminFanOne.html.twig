@@ -1,21 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Eddy's Admin | Look Details{% endblock %}
-
+{% block title %}Eddy's Admin | Fan Details{% endblock %}
 
 {% block body %}
+
 
     <section class="white-wrapper">
         <div class="section-inner">
             <div class="container">
                 <div class="row mb60 text-center">
                     <div class="col-sm-12">
-                        <h3 class="section-title">Look détails</h3>
+                        <h3 class="section-title">Fan détails</h3>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row mb40">
+
+
+
+
 
 
                     <div class="container">
@@ -34,86 +38,113 @@
                                                     <strong>ID: </strong>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    {{look.id}}
+                                                    {{fan.id}}
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>                           
+                                    </tr>   
 
-                                    <tr>
                                     <tr>
                                         <td>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-6">
-                                                    <strong>NOM: </strong>
+                                                    <strong>IS ADMIN:  </strong>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    {{look.description}}
+                                                    {% if fan.isadmin == 1 %}
+                                                        oui
+                                                    {% else %}
+                                                        non
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr> 
+
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>PSEUDO:  </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    {{fan.pseudo}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>  
+
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>EMAILL:  </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    {{fan.email}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr> 
+
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <strong>AVATAR: </strong>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-12 nopaddingleftright">
+
+                                                        <div class="col-sm-12 nopaddingleftright">
+                                                            <img src="{{ asset('/dossierFichiers/' ~ fan.avatar)}}" alt="Image" class="img-responsive smoothie">
+                                                        </div>  
+
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>       
 
-                                    <tr>
-                                        <td>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-6">
-                                                    <strong>DESCRIPTION :  </strong>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    {{look.descrlong}}
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>   
+
 
                                     <tr>
                                         <td>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-6">
-                                                    <strong>TYPE DE STYLE: </strong>
+                                                    <strong>COMMENTAIRES: </strong>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    {{look.idstyle.typestyle}}
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>   
 
-                                    <tr>
-                                        <td>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-6">
-                                                    <strong>LIKES: </strong>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    {{look.likes}}
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>    
+                                                    {% for comment in fan.fanComments|reverse %}
 
-                                    <tr>
-                                        <td>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-6">
-                                                    <strong>DATE: </strong>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    {{look.datelook|date('d/m/Y')}} 
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>    
+                                                        <div class="col-sm-12 nopaddingleftright">
 
-                                    <tr>
-                                        <td>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-6">
-                                                    <strong>IMAGE: </strong>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <img src="{{ asset('/dossierFichiers/' ~ look.picture)}}" alt="Image" class="img-responsive smoothie">
+                                                            <div class="col-sm-8 nopaddingleftright">                                                               
+                                                                {{comment.textcomment}}                                                              
+                                                            </div>  
+                                                            <div class="col-sm-4">
+                                                                <div class="col-sm-12">
+                                                                    <strong>LOOK: </strong><a href="{{'/looks/one/' ~ comment.idlook.id}}" class="">{{comment.idlook.description}}</a>
+                                                                </div>
+                                                                <br>
+                                                                <div class="col-sm-12">
+                                                                    <strong>DATE: </strong>{{comment.datecomment|date('d/m/Y')}}
+                                                                </div>                                                                
+                                                                <div class="col-sm-12 text-right">
+                                                                    <br>
+                                                                    <a class="btn btn-primary mt30 " href="/zone/admin/fan/comments/delete/{{comment.id}}">Supprimer</a>
+                                                                </div>
+                                                            </div> 
+                                                            <div class="col-sm-12">
+                                                                <hr>
+                                                            </div>
+
+                                                        </div> 
+
+                                                    {% endfor %}
+
+
                                                 </div>
                                             </div>
                                         </td>
@@ -126,11 +157,9 @@
 
                     <div class="col-sm-4 col-sm-offset-4">
                         <div class="text-center">        
-                            <a class="btn btn-primary mt30 btn-lg btn-block" href="/zone/admin/looks/delete/{{look.id}}">Supprimer</a>
+                            <a class="btn btn-primary mt30 btn-lg btn-block" href="/zone/admin/fans/delete/{{fan.id}}">Supprimer</a>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

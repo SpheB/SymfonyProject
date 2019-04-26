@@ -21,33 +21,74 @@
                         <div class="text-center">        
                             <a class="btn btn-primary mt30 btn-lg btn-block" href={{"/zone/admin/concours/creation"}}>Add Concours</a>
                         </div>
+                        <br>
+                        <br>
+                        <br>
                     </div>
+                        
+                    <div class="container">
+                        <div class="row mb40">
 
+                            <table class="table  table-striped">
+                                <thead style="background-color: #333; color: white">
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Theme</th>
+                                        <th scope="col">Début</th>
+                                        <th scope="col">Fin</th>
+                                        <th scope="col">Gagnant</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
 
+                                <tbody>
 
+                                    {% for valeur in lesconcours|reverse %}
 
-                    {% for valeur in lesconcours|reverse %}
-                        <ul>
-                            <li>{{valeur.id}} </li>
-                            <li>
-                                {% if valeur.gagnant != null %}
-                                    {{valeur.gagnant.id}} | {{valeur.gagnant.picture}}
-                                {% endif %}
-                            </li>
-                            <li>{{valeur.theme}} </li>
-                            <li>{{valeur.datedebut|date('d/m/Y')}} </li>
-                            <li>{{valeur.datefin|date('d/m/Y')}} </li>
-                            <li>{{valeur.commentconcours}} </li>
+                                        <tr>
+                                            <th scope="row">{{valeur.id}} </th>
+                                            <td>{{valeur.theme}}</td>
+                                            <td>{{valeur.datedebut|date('d/m/Y')}}</td>
+                                            <td>{{valeur.datefin|date('d/m/Y')}}</td>
+                                            <td>
+                                                {% if valeur.gagnant != null %}
+                                                    <a class="btn" href="/zone/admin/looks/one/{{valeur.gagnant.id}}">{{valeur.gagnant.id}}</a>
+                                                {% else %}
+                                                    en cours
+                                                {% endif %}
+                                            </td>
+                                            <td>        
+                                                <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Détails</a>
+                                            </td>
+                                        </tr>                           
+                                    {% endfor %}
 
-                            <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
-                        </ul>
-                    {% endfor %}
-
-
-
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    {#
+ 
+                       {% for valeur in lesconcours|reverse %}
+                           <ul>
+                               <li>{{valeur.id}} </li>
+                               <li>
+                                   {% if valeur.gagnant != null %}
+                                       {{valeur.gagnant.id}} | {{valeur.gagnant.picture}}
+                                   {% endif %}
+                               </li>
+                               <li>{{valeur.theme}} </li>
+                               <li>{{valeur.datedebut|date('d/m/Y')}} </li>
+                               <li>{{valeur.datefin|date('d/m/Y')}} </li>
+                               <li>{{valeur.commentconcours}} </li>
+   
+                               <a class="btn" href="/zone/admin/concours/one/{{valeur.id}}">Modifier</a>
+                           </ul>
+                       {% endfor %}
+   #}
 {% endblock %}

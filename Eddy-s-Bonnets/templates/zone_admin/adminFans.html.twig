@@ -18,6 +18,43 @@
                 <div class="row mb40">
 
 
+                    <table class="table  table-striped">
+                        <thead style="background-color: #333; color: white">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Pseudo</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">IsAdmin</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for valeur in lesfans %}
+                                <tr>
+                                    <th scope="row">{{valeur.id}} </th>
+                                    <td>{{valeur.pseudo}} </td>
+                                    <td>{{valeur.email}} </td>
+                                    <td>
+                                        {% if valeur.isadmin == 1 %}
+                                            oui
+                                        {% else %}
+                                            non
+                                        {% endif %}
+                                    </td>
+                                    <td>        
+                                        <a class="btn" href="/zone/admin/fans/one/{{valeur.id}}">Détails</a>
+                                    </td>
+                                </tr>   
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+
+
+
+
                     {% for valeur in lesfans %}
                         <ul>
                             <li>{{valeur.id}} </li>

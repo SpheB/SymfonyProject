@@ -21,25 +21,44 @@
                         <div class="text-center">        
                             <a class="btn btn-primary mt30 btn-lg btn-block" href={{"/zone/admin/looks/creation"}}>Add Look</a>
                         </div>
+                        <br>
+                        <br>
+                        <br>
                     </div>
 
-                        
-                        
-    {% for valeur in leslooks|reverse %}
-        <ul>
-            <li>{{valeur.id}} </li>
-            <li>{{valeur.idstyle.id}} | {{valeur.idstyle.typestyle}} </li>
-            <li>{{valeur.picture}} </li>
-            <li>{{valeur.likes}} </li>
-            <li>{{valeur.description}} </li>
 
-            <a class="btn" href="/zone/admin/looks/one/{{valeur.id}}">Modifier</a>
-        </ul>
-    {% endfor %}
 
-    
-    
-   
+                    <table class="table table-striped">
+                        <thead style="background-color: #333; color: white">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Date Création</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Type de Style</th>
+                                <th scope="col">Likes</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for valeur in leslooks|reverse %}
+
+                                <tr>
+                                    <th scope="row">{{valeur.id}} </th>
+                                    <td>{{valeur.datelook|date('d/m/Y')}}</td>
+                                    <td>{{valeur.description}}</td>
+                                    <td>{{valeur.idstyle.typestyle}}</td>
+                                    <td>{{valeur.likes}}</td>
+                                    <td>        
+                                        <a class="btn" href="/zone/admin/looks/one/{{valeur.id}}">Détails</a>
+                                    </td>
+                                </tr>                           
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>

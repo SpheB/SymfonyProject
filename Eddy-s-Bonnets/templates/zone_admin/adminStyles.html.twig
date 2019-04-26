@@ -21,10 +21,49 @@
                         <div class="text-center">        
                             <a class="btn btn-primary mt30 btn-lg btn-block" href={{"/zone/admin/styles/creation"}}>Add Style</a>
                         </div>
+                        <br>
+                        <br>
+                        <br>
                     </div>
 
 
-                    {% for valeur in lesstyles|reverse %}
+                    <div class="container">
+                        <div class="row mb40">
+
+                            <table class="table  table-striped">
+                                <thead style="background-color: #333; color: white">
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Type de Style</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {% for valeur in lesstyles|reverse %}
+
+                                        <tr>
+                                            <th scope="row">{{valeur.id}} </th>
+                                            <td>{{valeur.typestyle}} </td>
+                                            <td>        
+                                                <a class="btn" href="/zone/admin/styles/one/{{valeur.id}}">Détails</a>
+                                            </td>
+                                        </tr>                           
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#
+                        {% for valeur in lesstyles|reverse %}
                         <ul>
                             <li>{{valeur.id}} </li>
                             <li>{{valeur.typestyle}} </li>
@@ -33,10 +72,5 @@
                             <a class="btn" href="/zone/admin/styles/one/{{valeur.id}}">Modifier</a>
                         </ul>
                     {% endfor %}
-
-                </div>
-            </div>
-        </div>
-    </section>
-
+    #}
 {% endblock %}
