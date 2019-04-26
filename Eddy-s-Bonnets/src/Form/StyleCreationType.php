@@ -15,7 +15,7 @@ class StyleCreationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type_style', TextType::class)
+            ->add('type_style', TextType::class, array ('label'=>"Type de style: "))
         ;
     }
 

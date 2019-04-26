@@ -15,12 +15,12 @@ class ConcoursCreation2Type extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('theme', TextType::class)
-                ->add('date_debut', DateType::class, ['widget' => 'single_text',
+                ->add('theme', TextType::class, array('label' => "Thème: "))
+                ->add('date_debut', DateType::class, ['label' => 'Date de Début: ', 'widget' => 'single_text',
                     'format' => 'yyyy-MM-dd'])
-                ->add('date_fin', DateType::class, ['widget' => 'single_text',
+                ->add('date_fin', DateType::class, ['label' => 'Date de Fin: ', 'widget' => 'single_text',
                     'format' => 'yyyy-MM-dd'])
-                ->add('comment_concours', TextareaType::class)
+                ->add('comment_concours', TextareaType::class, array('label' => "Commentaires: "))
                 ->add('looks', EntityType::class, [
                     'class' => 'App\Entity\Look',
                     'choice_label' => 'picture',

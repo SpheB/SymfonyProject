@@ -19,19 +19,92 @@
                 <div class="row mb40">
 
 
-                    {{ form_start (formulaireNews) }}
-
-                    <br>
-                    <br>
-                    {{ form_row(formulaireNews.titre)}}
-                    {{ form_row(formulaireNews.accroche)}}
-                    {{ form_row(formulaireNews.text_news)}}
-                    {{ form_row(formulaireNews.date_news)}}
-                    {{ form_row(formulaireNews.picture_news)}}
 
 
-                    <input type="submit" class="btn" value="Envoyer" />
-                    {{ form_end (formulaireNews) }}
+                    <div class="col-sm-9 col-sm-offset-2">
+                        {{ form_start (formulaireNews) }}
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireNews.titre) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireNews.titre, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireNews.accroche) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireNews.accroche, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireNews.text_news) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireNews.text_news, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireNews.date_news) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireNews.date_news, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireNews.picture_news) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireNews.picture_news, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12 text-center">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <div class="text-center">    
+                                <br> 
+                                <br>
+                                <input type="submit" class="btn btn-primary mt30 btn-lg btn-block" value="Envoyer" />
+                            </div>
+                        </div>
+                        {{ form_end (formulaireNews) }}
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                    {#  {{ form_start (formulaireNews) }}
+  
+                      <br>
+                      <br>
+                      {{ form_row(formulaireNews.titre)}}
+                      {{ form_row(formulaireNews.accroche)}}
+                      {{ form_row(formulaireNews.text_news)}}
+                      {{ form_row(formulaireNews.date_news)}}
+                      {{ form_row(formulaireNews.picture_news)}}
+  
+  
+                      <input type="submit" class="btn" value="Envoyer" />
+                      {{ form_end (formulaireNews) }}
+                      #}
 
                 </div>
             </div>

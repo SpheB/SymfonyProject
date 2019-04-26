@@ -18,6 +18,77 @@
                 <div class="row mb40">
 
 
+
+                    <div class="col-sm-9 col-sm-offset-2">
+                        {{ form_start (formulaireConcours) }}
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireConcours.theme) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireConcours.theme, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireConcours.comment_concours) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireConcours.comment_concours, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireConcours.date_debut) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireConcours.date_debut, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 text-uppercase text-muted">
+                                {{ form_label(formulaireConcours.date_fin) }}
+                            </div>
+                            <div class="col-sm-8 text-uppercase text-muted">
+                                {{ form_widget(formulaireConcours.date_fin, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                            </div>
+                        </div>
+
+
+                        {#!!!!!!!!!!!!!!!!!!!!!
+                    <div class="col-sm-12">
+                        <div class="col-sm-4 text-uppercase text-muted">
+                            {{ form_label(formulaireConcours.looks) }}
+                        </div>
+                        <div class="col-sm-8 text-uppercase text-muted">
+                            {{ form_widget(formulaireConcours.looks, { 'attr': {'class': 'form-control col-md-4 mb20'} }) }}
+                        </div>
+                    </div>
+                        !!!!!!!!!!!!!!!!!!!!!!!#}
+
+                    </div>
+
+                    <div class="col-sm-12 text-center">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <div class="text-center">    
+                                <br> 
+                                <br>
+                                <input type="submit" class="btn btn-primary mt30 btn-lg btn-block" value="Envoyer" />
+                            </div>
+                        </div>
+                        {{ form_end (formulaireConcours) }}
+
+                    </div>
+
+
+
+                    {#
+                    
+                    
                     {{ form_start (formulaireConcours) }}
 
                     <br>
@@ -33,7 +104,7 @@
                     <input type="submit" class="btn" value="Envoyer" />
                     {{ form_end (formulaireConcours) }}
 
-
+                    #}
 
 
                 </div>

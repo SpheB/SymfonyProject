@@ -17,12 +17,12 @@ class NewsCreationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre', TextType::class)
-            ->add('accroche', TextType::class)
-            ->add('text_news', TextType::class)
-            ->add('date_news', DateType::class, ['widget' => 'single_text',
+            ->add('titre', TextType::class, array ('label'=>"Titre: "))
+            ->add('accroche', TextType::class, array ('label'=>"Accroche: "))
+            ->add('text_news', TextType::class, array ('label'=>"Contenu: "))
+            ->add('date_news', DateType::class, ['label' => 'Date: ', 'widget' => 'single_text',
                     'format' => 'yyyy-MM-dd'])
-            ->add('picture_news', FileType::class, array('label' => "Sélectionner un image news "))
+            ->add('picture_news', FileType::class, array('label' => "Sélectionnez un image: "))
         ;
     }
 
