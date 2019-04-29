@@ -126,7 +126,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 text-center mb30">
-                            <a class="logo" href="/"><img alt="" class="logo img-responsive" src="{{ asset('assets/images/logo-light.png') }}"></a>
+                            <a class="logo" href="/"><img alt="" class="logo img-responsive" src="{{ asset('assets/images/logo-lighte2l.png') }}"></a>
                         </div>
                         <div class="col-sm-12 text-center">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false" aria-controls="navbar">
@@ -171,7 +171,7 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="text-widget widget">
                             <div class="widget-content">
-                                <img alt="" class="img-responsive" src="{{ asset('assets/images/logo-light.png') }}">
+                                <img alt="" class="img-responsive" src="{{ asset('assets/images/logo-lighte2c.png') }}">
                             </div>
                         </div>
                     </div>
@@ -192,19 +192,19 @@
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">404</a>
+                                                    <i class="fa fa-angle-right"></i><a href="/">Home</a>
                                                 </li>
                                                 <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Blog</a>
+                                                    <i class="fa fa-angle-right"></i><a href="/about">About Us</a>
                                                 </li>
                                                 <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">About Us</a>
+                                                    <i class="fa fa-angle-right"></i><a href="/login">Login</a>
                                                 </li>
                                                 <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Contact</a>
+                                                    <i class="fa fa-angle-right"></i><a href="/register">Register</a>
                                                 </li>
                                                 <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Social Media</a>
+                                                    <i class="fa fa-angle-right"></i><a href="/contact">Contact</a>
                                                 </li>
 
                                             </ul>
@@ -212,21 +212,16 @@
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Company</a>
+                                                    <i class="fa fa-angle-right"></i><a href="/looks">Looks</a>
                                                 </li>
                                                 <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Latest Courses</a>
+                                                    <i class="fa fa-angle-right"></i><a href="/news">News</a>
                                                 </li>
-                                                <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Partners</a>
-                                                </li>
-                                                <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Blog Post</a>
-                                                </li>
-                                                <li>
-                                                    <i class="fa fa-angle-right"></i><a href="#">Help Topic</a>
-                                                </li>
-
+                                                {% if app.user != null %}
+                                                    <li>
+                                                        <i class="fa fa-angle-right"></i><a href="/concours">Concours</a>
+                                                    </li>
+                                                {% endif %}
                                             </ul>
                                         </div>
                                     </div>
@@ -236,15 +231,13 @@
                     </div>
                     <div class="col-md-3 col-xs-6">
                         <div class="mailing-widget widget">
-                            <h4 class="widget-title mb40">Mailing List</h4>
+                            <h4 class="widget-title mb40">Contact Us</h4>
                             <div class="content-wiget">
-                                <p class="mb40">Subscribe to our newsletter for the latest updates and offers.</p>
-                                <form action="index.html">
-                                    <div class="input-group">
-                                        <input class="form-control form-email-widget" placeholder="Email address" type="text"><span class="input-group-btn"><input class="btn btn-email" type="submit" value="✓"></span>
-                                    </div>
-                                </form>
-                                <p></p>
+                                <p class="mb40">
+                                    Do you have question? Would you like to make a suggestion?
+                                    <br>
+                                    <i class="fa fa-angle-right"></i><a href="/contact">Send us an Email</a>
+                                </p>
                             </div>
                         </div>
                     </div>

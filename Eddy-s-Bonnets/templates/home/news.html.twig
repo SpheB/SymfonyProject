@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="row mb60 text-center">
                     <div class="col-sm-12">
-                        <h3 class="section-title">News List</h3>
+                        <h3 class="section-title">News</h3>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                                     <div class="col-sm-6 nopaddingleftright blog-list-item mb90">
                                         <div class="hover-effect smoothie mb40">
                                             <a href="#" class="smoothie">
-                                                <img src="assets/images/blog/blog-1.jpg" alt="Image" class="img-responsive smoothie"></a>
+                                                <img src="{{ asset('/dossierFichiers/' ~ valeur.picturenews)}}" alt="Image" class="img-responsive smoothie"></a>
                                             <div class="hover-overlay smoothie text-center">
                                                 <div class="vertical-align-bottom">
                                                     <h4>{{valeur.accroche}}</h4>
@@ -38,14 +38,14 @@
                                 </div>
                             {%else%}
                                 <div class="col-sm-12">
-                                    <div class="col-sm-6  blog-list-item mb90">
+                                    <div class="col-sm-6  blog-list-item mb90 text-right">
                                         <h4>{{valeur.titre}}</h4>
                                         <p class="mb20">{{valeur.textnews}} </p>
                                     </div>
                                     <div class="col-sm-6 nopaddingleftright blog-list-item mb90">
                                         <div class="hover-effect smoothie mb40">
                                             <a href="#" class="smoothie">
-                                                <img src="assets/images/blog/blog-1.jpg" alt="Image" class="img-responsive smoothie"></a>
+                                                <img src="{{ asset('/dossierFichiers/' ~ valeur.picturenews)}}" alt="Image" class="img-responsive smoothie"></a>
                                             <div class="hover-overlay smoothie text-center">
                                                 <div class="vertical-align-bottom">
                                                     <h4>{{valeur.accroche}}</h4>
